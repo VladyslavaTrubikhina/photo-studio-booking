@@ -1,0 +1,1325 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Water Treatment API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Impurity API"
+    },
+    {
+      "name": "Cartridge API"
+    },
+    {
+      "name": "Membrane API"
+    },
+    {
+      "name": "Mineralizer API"
+    },
+    {
+      "name": "Pump API"
+    },
+    {
+      "name": "Tank API"
+    },
+    {
+      "name": "Filtration System API"
+    }
+  ],
+  "paths": {
+    "/impurities": {
+      "post": {
+        "tags": [
+          "Impurity API"
+        ],
+        "summary": "Create Impurity",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the impurity",
+                    "example": "Test Impurity"
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "URL of the impurity image",
+                    "example": "http://example.com/image.png"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Impurity created successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Impurity creation failed"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Impurity API"
+        ],
+        "summary": "Get All Impurities",
+        "responses": {
+          "200": {
+            "description": "List of all impurities retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Impurities not found"
+          }
+        }
+      }
+    },
+    "/impurities/id/{id}": {
+      "get": {
+        "tags": [
+          "Impurity API"
+        ],
+        "summary": "Get Impurity By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the impurity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Impurity retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Impurity not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Impurity API"
+        ],
+        "summary": "Update Impurity By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the impurity"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Updated name of the impurity",
+                    "example": "Updated Impurity"
+                  },
+                  "oldImageUrl": {
+                    "type": "string",
+                    "description": "Old URL of the impurity image",
+                    "example": "images/impurities/1720910321915.png"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Impurity updated successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Impurity not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Impurity API"
+        ],
+        "summary": "Delete Impurity By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the impurity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Impurity deleted successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Impurity not found"
+          }
+        }
+      }
+    },
+    "/cartridges": {
+      "post": {
+        "tags": [
+          "Cartridge API"
+        ],
+        "summary": "Create Cartridge",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the cartridge",
+                    "example": "Test Cartridge"
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "URL of the cartridge image",
+                    "example": "http://example.com/image.png"
+                  },
+                  "impurityIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "IDs of impurities the cartridge filters",
+                    "example": [
+                      2,
+                      3
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cartridge created successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Cartridge creation failed"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Cartridge API"
+        ],
+        "summary": "Get All Cartridges",
+        "responses": {
+          "200": {
+            "description": "List of all cartridges retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Cartridges not found"
+          }
+        }
+      }
+    },
+    "/cartridges/id/{id}": {
+      "get": {
+        "tags": [
+          "Cartridge API"
+        ],
+        "summary": "Get Cartridge By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the cartridge"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cartridge retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Cartridge not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cartridge API"
+        ],
+        "summary": "Update Cartridge By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the cartridge"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Updated name of the cartridge",
+                    "example": "Updated Cartridge"
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "Updated URL of the cartridge image",
+                    "example": "http://example.com/updated_image.png"
+                  },
+                  "impurityIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "Updated IDs of impurities the cartridge filters",
+                    "example": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cartridge updated successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Cartridge not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cartridge API"
+        ],
+        "summary": "Delete Cartridge By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the cartridge"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cartridge deleted successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Cartridge not found"
+          }
+        }
+      }
+    },
+    "/membranes": {
+      "post": {
+        "tags": [
+          "Membrane API"
+        ],
+        "summary": "Create Membrane",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the membrane",
+                    "example": "Test Membrane"
+                  },
+                  "pressure": {
+                    "type": "number",
+                    "description": "Pressure of the membrane",
+                    "example": 1.5
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "URL of the membrane image",
+                    "example": "http://example.com/image.png"
+                  },
+                  "impurityIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "IDs of impurities the membrane filters",
+                    "example": [
+                      1,
+                      2
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Membrane created successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Membrane creation failed"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Membrane API"
+        ],
+        "summary": "Get All Membranes",
+        "responses": {
+          "200": {
+            "description": "List of all membranes retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Membranes not found"
+          }
+        }
+      }
+    },
+    "/membranes/id/{id}": {
+      "get": {
+        "tags": [
+          "Membrane API"
+        ],
+        "summary": "Get Membrane By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the membrane"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Membrane retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Membrane not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Membrane API"
+        ],
+        "summary": "Update Membrane By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the membrane"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Updated name of the membrane",
+                    "example": "Updated Membrane"
+                  },
+                  "pressure": {
+                    "type": "number",
+                    "description": "Updated pressure of the membrane",
+                    "example": 2
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "Updated URL of the membrane image",
+                    "example": "http://example.com/updated_image.png"
+                  },
+                  "impurityIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "Updated IDs of impurities the membrane filters",
+                    "example": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Membrane updated successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Membrane not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Membrane API"
+        ],
+        "summary": "Delete Membrane By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the membrane"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Membrane deleted successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Membrane not found"
+          }
+        }
+      }
+    },
+    "/mineralizers": {
+      "post": {
+        "tags": [
+          "Mineralizer API"
+        ],
+        "summary": "Create Mineralizer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the mineralizer",
+                    "example": "Test Mineralizer"
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "URL of the mineralizer image",
+                    "example": "http://example.com/image.png"
+                  },
+                  "impurityIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "IDs of impurities the mineralizer filters",
+                    "example": [
+                      2,
+                      3
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mineralizer created successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Mineralizer creation failed"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Mineralizer API"
+        ],
+        "summary": "Get All Mineralizers",
+        "responses": {
+          "200": {
+            "description": "List of all mineralizers retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Mineralizers not found"
+          }
+        }
+      }
+    },
+    "/mineralizers/id/{id}": {
+      "get": {
+        "tags": [
+          "Mineralizer API"
+        ],
+        "summary": "Get Mineralizer By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the mineralizer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mineralizer retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Mineralizer not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Mineralizer API"
+        ],
+        "summary": "Update Mineralizer By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the mineralizer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Updated name of the mineralizer",
+                    "example": "Updated Mineralizer"
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "Updated URL of the mineralizer image",
+                    "example": "http://example.com/updated_image.png"
+                  },
+                  "impurityIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "Updated IDs of impurities the mineralizer filters",
+                    "example": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mineralizer updated successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Mineralizer not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Mineralizer API"
+        ],
+        "summary": "Delete Mineralizer By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the mineralizer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mineralizer deleted successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Mineralizer not found"
+          }
+        }
+      }
+    },
+    "/pumps": {
+      "post": {
+        "tags": [
+          "Pump API"
+        ],
+        "summary": "Create Pump",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the pump",
+                    "example": "Test Pump"
+                  },
+                  "pressure": {
+                    "type": "number",
+                    "description": "Pressure of the pump",
+                    "example": 1.5
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "URL of the pump image",
+                    "example": "http://example.com/image.png"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pump created successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Pump creation failed"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Pump API"
+        ],
+        "summary": "Get All Pumps",
+        "responses": {
+          "200": {
+            "description": "List of all pumps retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Pumps not found"
+          }
+        }
+      }
+    },
+    "/pumps/id/{id}": {
+      "get": {
+        "tags": [
+          "Pump API"
+        ],
+        "summary": "Get Pump By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the pump"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pump retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Pump not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Pump API"
+        ],
+        "summary": "Update Pump By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the pump"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Updated name of the pump",
+                    "example": "Updated Pump"
+                  },
+                  "pressure": {
+                    "type": "number",
+                    "description": "Updated pressure of the pump",
+                    "example": 2
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "Updated URL of the pump image",
+                    "example": "http://example.com/updated_image.png"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pump updated successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Pump not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Pump API"
+        ],
+        "summary": "Delete Pump By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the pump"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pump deleted successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Pump not found"
+          }
+        }
+      }
+    },
+    "/tanks": {
+      "post": {
+        "tags": [
+          "Tank API"
+        ],
+        "summary": "Create Tank",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the tank",
+                    "example": "Test Tank"
+                  },
+                  "size": {
+                    "type": "number",
+                    "description": "Size of the tank",
+                    "example": 100
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "URL of the tank image",
+                    "example": "http://example.com/image.png"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tank created successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Tank creation failed"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Tank API"
+        ],
+        "summary": "Get All Tanks",
+        "responses": {
+          "200": {
+            "description": "List of all tanks retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Tanks not found"
+          }
+        }
+      }
+    },
+    "/tanks/id/{id}": {
+      "get": {
+        "tags": [
+          "Tank API"
+        ],
+        "summary": "Get Tank By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the tank"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tank retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Tank not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Tank API"
+        ],
+        "summary": "Update Tank By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the tank"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Updated name of the tank",
+                    "example": "Updated Tank"
+                  },
+                  "size": {
+                    "type": "number",
+                    "description": "Updated size of the tank",
+                    "example": 200
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "Updated URL of the tank image",
+                    "example": "http://example.com/updated_image.png"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tank updated successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Tank not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tank API"
+        ],
+        "summary": "Delete Tank By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the tank"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tank deleted successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Tank not found"
+          }
+        }
+      }
+    },
+    "/systems": {
+      "post": {
+        "tags": [
+          "Filtration System API"
+        ],
+        "summary": "Create Filtration System",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the filtration system",
+                    "example": "Test Filtration System"
+                  },
+                  "membrane": {
+                    "type": "integer",
+                    "description": "ID of the membrane used in the system",
+                    "example": 3
+                  },
+                  "pump": {
+                    "type": "integer",
+                    "description": "ID of the pump used in the system",
+                    "example": 3
+                  },
+                  "tank": {
+                    "type": "integer",
+                    "description": "ID of the tank used in the system",
+                    "example": 3
+                  },
+                  "mineralizer": {
+                    "type": "integer",
+                    "description": "ID of the mineralizer used in the system",
+                    "example": 3
+                  },
+                  "cartridges": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "IDs of cartridges used in the system",
+                    "example": [
+                      3,
+                      4
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Filtration system created successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Filtration system creation failed"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Filtration System API"
+        ],
+        "summary": "Get All Filtration Systems",
+        "responses": {
+          "200": {
+            "description": "List of all filtration systems retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Filtration systems not found"
+          }
+        }
+      }
+    },
+    "/systems/id/{id}": {
+      "get": {
+        "tags": [
+          "Filtration System API"
+        ],
+        "summary": "Get Filtration System By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the filtration system"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Filtration system retrieved successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Filtration system not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Filtration System API"
+        ],
+        "summary": "Update Filtration System By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the filtration system"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Updated name of the filtration system",
+                    "example": "Updated Filtration System"
+                  },
+                  "membrane": {
+                    "type": "integer",
+                    "description": "Updated ID of the membrane used in the system",
+                    "nullable": true,
+                    "example": null
+                  },
+                  "pump": {
+                    "type": "integer",
+                    "description": "Updated ID of the pump used in the system",
+                    "nullable": true,
+                    "example": null
+                  },
+                  "tank": {
+                    "type": "integer",
+                    "description": "Updated ID of the tank used in the system",
+                    "nullable": true,
+                    "example": null
+                  },
+                  "mineralizer": {
+                    "type": "integer",
+                    "description": "Updated ID of the mineralizer used in the system",
+                    "nullable": true,
+                    "example": null
+                  },
+                  "cartridges": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "Updated IDs of cartridges used in the system",
+                    "example": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Filtration system updated successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Filtration system not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Filtration System API"
+        ],
+        "summary": "Delete Filtration System By ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the filtration system"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Filtration system deleted successfully",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Filtration system not found"
+          }
+        }
+      }
+    }
+  }
+}

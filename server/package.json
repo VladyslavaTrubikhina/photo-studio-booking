@@ -1,0 +1,27 @@
+{
+  "name": "web-advanced-backend",
+  "version": "1.0.0",
+  "description": "Template for the backend of module 2.1 Web Advanced for Saxion ACT HBO-IT",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js",
+    "dev": "node --watch ./src/index.js",
+    "lint": "npx eslint ./src"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.0",
+    "eslint": "^9.30.0",
+    "globals": "^16.2.0"
+  }
+}
