@@ -1,7 +1,6 @@
 <script>
-    import Counter from '../components/Counter.svelte';
-
-    export let params;
+    import Counter from "../lib/Counter.svelte";
 </script>
 
+<h1>Home</h1>
 <Counter />
