@@ -6,7 +6,6 @@
   - [Client](./README.md#client)
   - [Server](./README.md#server)
   - [Documentation](./README.md#documentation)
-  - [Tests](./README.md#tests)
 
 
 ## Introduction
@@ -66,10 +65,3 @@ As part of the assignment you will need to document some of your work. This docu
 [Markdown](https://www.jetbrains.com/help/upsource/markdown-syntax.html). **Not** Word or PDF. Feel free to add images 
 to explain things better. Markdown has many options to create nice documentation, and it renders well on most Git 
 hosters such as Gitlab and GitHub.
-
-
-### Tests
-
-In order to validate the functionality of your server it needs to be tested. Testing will be done using REST calls from
-within IntelliJ. These tests are explained in greater detail in the [testing section](./tests/rest/README.md). A few 
-examples for the default hello world and authentication endpoints have been added.
