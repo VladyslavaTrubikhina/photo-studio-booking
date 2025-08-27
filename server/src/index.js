@@ -1,15 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './swagger-config.js';
+import exampleRouter from './routes/example.js';
 
-import swaggerDoc from '../../documentation/openapi.json' with { type: 'json' };
-
-// Check if NODE_ENV environment variable is set. If not, throw an error.
-const nodeEnv = process.env.NODE_ENV;
-if (!nodeEnv) {
-    throw new Error('NODE_ENV not set!');
-}
-
+// Check if NODE_ENV environment variable is set, otherwise go to development mode
+const nodeEnv = process.env.NODE_ENV || 'development';
 const app = express();
 const port = 3000;
 
@@ -17,10 +13,11 @@ const port = 3000;
 app.use(express.json());
 app.use(cors()); // TODO make sure it blocks everything except localhost port 4173 and 5173 (default Svelte ports)
 
-// Set up swagger API doc path
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+// Setup swagger and make it available on /api-docs.
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// TODO setup your routers here
+// TODO: setup your routers here
+app.use('/example', exampleRouter);
 
 // Global error handler. In your code, throw an object with a status and message, and it will be caught here. We ignore one eslint call here, because next is needed.
 // eslint-disable-next-line no-unused-vars
@@ -38,3 +35,6 @@ app.listen(port, () => {
     // eslint-disable-next-line no-console
     console.log(`App listening on port ${port}, running in ${nodeEnv} mode.`);
 });
+
+// Export app for testing purposes
+export default app;

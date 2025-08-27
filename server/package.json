@@ -5,23 +5,27 @@
   "main": "./src/index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/index.js",
     "dev": "node --watch ./src/index.js",
-    "lint": "npx eslint ./src"
+    "lint": "npx eslint ./src",
+    "test": "npx vitest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "openapi-to-postmanv2": "^5.0.2",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
+    "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",
     "eslint": "^9.30.0",
-    "globals": "^16.2.0"
+    "globals": "^16.2.0",
+    "supertest": "^7.1.4",
+    "vitest": "^3.2.4"
   }
 }
