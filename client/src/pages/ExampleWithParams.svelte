@@ -10,7 +10,7 @@ for (const key of queryParams.keys()) {
 }
 </script>
 
-<h1>Example page with parameters</h1>
+<h1 class="text-3xl font-bold underline">Example page with parameters</h1>
 <p>This page demonstrates how parameters can be passed through the <a href="https://visionmedia.github.io/page.js/">Page.js</a> router.</p>
 
 <h2>Path parameters</h2>
