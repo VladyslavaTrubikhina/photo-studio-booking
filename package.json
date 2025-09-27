@@ -1,0 +1,19 @@
+{
+  "name": "194",
+  "version": "1.0.0",
+  "description": "- [Introduction](./README.md#introduction) - [Template](./README.md#template) - [Assignment](./README.md#assignment) - [Client](./README.md#client) - [Server](./README.md#server)   - [REST specification and automated testing](./README.md#rest-specification-and-automated-testing)   - [Linting](./README.md#linting) - [Documentation](./README.md#documentation)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@university:saxionnl/hbo-ict/webtech/2025-2026/assignment/194.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
