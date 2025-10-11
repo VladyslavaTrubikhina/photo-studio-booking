@@ -1,6 +1,7 @@
 <script>
     import Button from "../lib/Button.svelte";
     import InputField from "../lib/InputField.svelte";
+    import router from "page";
 
     let email = "";
     let password = "";
@@ -8,7 +9,7 @@
 
     async function handleLogin() {
         try {
-            const res = await fetch("http://localhost:3000/auth/login", {
+            const res = await fetch("http://localhost:3000/login/auth", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
@@ -18,7 +19,10 @@
 
             if (!res.ok) {
                 error = data.error || "Login failed";
+            } else {
+                router("/");
             }
+
         } catch (err) {
             error = "Unable to reach the server";
             console.error(err);

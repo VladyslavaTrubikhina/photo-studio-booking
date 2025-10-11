@@ -10,14 +10,14 @@
   let Page = $state();
   let context = $state({});
 
-  router("/", (ctx) => {
-    Page = Home;
-    currentRoute = ctx.pathname;
-  });
-
   router("/login", (ctx) => {
       Page = Login;
       currentRoute = ctx.pathname;
+  });
+
+  router("/", (ctx) => {
+    Page = Home;
+    currentRoute = ctx.pathname;
   });
 
   router("/about", (ctx) => {
