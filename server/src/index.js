@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors()); // TODO make sure it blocks everything except localhost port 4173 and 5173 (default Svelte ports)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use('/auth', authRouter);
+app.use('/login', authRouter);
 
 // Global error handler. In your code, throw an object with a status and message, and it will be caught here. We ignore one eslint call here, because next is needed.
 // eslint-disable-next-line no-unused-vars

@@ -39,7 +39,7 @@ import { Users } from "../db/database-helper.js";
  *         description: Invalid email or password
  */
 
-export async function login(req, res) {
+export async function authenticate(req, res) {
     const { email, password } = req.body;
 
     if (!email || !password) {
