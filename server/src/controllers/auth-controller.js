@@ -50,10 +50,10 @@ export async function login(req, res) {
         const user = await Users.findOne({where: {email: email}});
 
         if (!user) {
-            return res.status(401).json({ error: "User with this email does not exist" });
+            return res.status(401).json({ error: "Invalid email or password" });
         }
         if (user.password !== password) {
-            return res.status(401).json({ error: "Invalid password" });
+            return res.status(401).json({ error: "Invalid email or password" });
         }
 
         return res.json({
