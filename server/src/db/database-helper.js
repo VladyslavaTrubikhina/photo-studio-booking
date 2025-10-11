@@ -1,4 +1,4 @@
-/* eslint-disable no-console, camelcase */
+/* eslint-disable no-console */
 import {DataTypes, Sequelize} from "sequelize";
 
 const nodeEnv = process.env.NODE_ENV || 'dev';
@@ -14,7 +14,7 @@ try {
     console.error('Unable to connect to the database:', error);
 }
 
-const Users = sequelize.define("Users", {
+export const Users = sequelize.define("Users", {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -35,7 +35,7 @@ const Users = sequelize.define("Users", {
     },
 });
 
-const Locations = sequelize.define('Locations', {
+export const Locations = sequelize.define('Locations', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -52,7 +52,7 @@ const Locations = sequelize.define('Locations', {
     description: DataTypes.TEXT,
 });
 
-const PhotoZones = sequelize.define("PhotoZones", {
+export const PhotoZones = sequelize.define("PhotoZones", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -77,7 +77,7 @@ const PhotoZones = sequelize.define("PhotoZones", {
     }
 });
 
-const Reservations = sequelize.define("Reservations", {
+export const Reservations = sequelize.define("Reservations", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -118,5 +118,12 @@ export async function addUser(email, password, is_admin = false) {
     return user;
 }
 
-addUser("admin@photos.com", "adminpassword123", true);
-addUser("user@photos.com", "userpassword123");
+await addUser("admin@photos.com", "adminpassword123", true);
+await addUser("user@photos.com", "userpassword123");
+
+export default {
+    Users,
+    Locations,
+    PhotoZones,
+    Reservations,
+};

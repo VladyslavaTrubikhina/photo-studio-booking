@@ -2,9 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './swagger-config.js';
-import exampleRouter from './routes/example.js';
+import authRouter from './routes/auth-router.js';
 
-// Check if NODE_ENV environment variable is set, otherwise go to development mode
 const nodeEnv = process.env.NODE_ENV || 'dev';
 const app = express();
 const port = 3000;
@@ -12,12 +11,9 @@ const port = 3000;
 // Set up basic JSON parsing and CORS headers
 app.use(express.json());
 app.use(cors()); // TODO make sure it blocks everything except localhost port 4173 and 5173 (default Svelte ports)
-
-// Setup swagger and make it available on /api-docs.
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// TODO: setup your routers here, remove the one (and the exampleRouter code) below
-app.use('/example', exampleRouter);
+app.use('/auth', authRouter);
 
 // Global error handler. In your code, throw an object with a status and message, and it will be caught here. We ignore one eslint call here, because next is needed.
 // eslint-disable-next-line no-unused-vars

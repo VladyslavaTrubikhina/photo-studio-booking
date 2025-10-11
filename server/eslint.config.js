@@ -12,7 +12,6 @@ export default defineConfig([
       "no-duplicate-imports": "warn",
       "no-unassigned-vars": "error",
       "no-useless-assignment": "error",
-      "camelcase": "warn",
       "eqeqeq": "error",
       "no-console": "warn",
       "no-eval": "error",
