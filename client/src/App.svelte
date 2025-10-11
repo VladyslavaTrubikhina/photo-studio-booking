@@ -2,6 +2,7 @@
   import router from "page";
   import Home from "./pages/Home.svelte";
   import About from "./pages/About.svelte";
+  import Login from "./pages/Login.svelte";
   import ExampleWithParams from "./pages/ExampleWithParams.svelte";
   import Header from "./lib/Header.svelte";
 
@@ -13,6 +14,12 @@
     Page = Home;
     currentRoute = ctx.pathname;
   });
+
+  router("/login", (ctx) => {
+      Page = Login;
+      currentRoute = ctx.pathname;
+  });
+
   router("/about", (ctx) => {
     Page = About;
     currentRoute = ctx.pathname;

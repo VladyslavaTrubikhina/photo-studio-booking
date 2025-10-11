@@ -1,107 +1,115 @@
-/**
- * This is an example route file demonstrating OpenAPI documentation.
- * PLEASE REMOVE THIS FILE ONCE YOU HAVE YOUR OWN ROUTES!!!
- */
 import express from 'express';
 const router = express.Router();
 
+// /users
+ /**
+ * @openapi
+ * /users:
+ *   post:
+ *     summary: Register a new user account
+ *     description: Creates a new user in the system.
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: newuser@example.com
+ *               password:
+ *                 type: string
+ *                 example: newpassword123
+ *               isAdmin:
+ *                 type: boolean
+ *                 example: false
+ *     responses:
+ *       201:
+ *         description: User successfully created
+ *       400:
+ *         description: Invalid input or user already exists
+ *   get:
+ *     summary: Get all users
+ *     description: Retrieves a list of all users. Typically restricted to admins.
+ *     tags:
+ *       - Users
+ *     responses:
+ *       200:
+ *         description: List of all users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                     example: 550e8400-e29b-41d4-a716-446655440000
+ *                   email:
+ *                     type: string
+ *                     example: user@example.com
+ *                   isAdmin:
+ *                     type: boolean
+ *                     example: false
+ *       403:
+ *         description: Forbidden — only admins can access this route
+ */
+
+// /users/{id}
 /**
  * @openapi
- * /example/{id}:
+ * /users/{id}:
  *   get:
- *     summary: Get an example object by ID
- *     description: Returns an example object if the ID is `1`, otherwise returns an error.
+ *     summary: Get a user by ID
+ *     description: Retrieves detailed information about a specific user.
+ *     tags:
+ *       - Users
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
- *         description: The ID of the example object
+ *           type: string
+ *         description: UUID of the user
  *     responses:
  *       200:
- *         description: Example object returned successfully
+ *         description: User found
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
  *                 id:
- *                   type: integer
- *                   example: 1
- *                 value:
  *                   type: string
- *                   example: "Hello World"
+ *                   example: 550e8400-e29b-41d4-a716-446655440000
+ *                 email:
+ *                   type: string
+ *                   example: user@example.com
+ *                 isAdmin:
+ *                   type: boolean
+ *                   example: false
  *       404:
- *         description: Example object not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Example not found"
- */
-router.get('/:id', (req, res) => {
-  const id = parseInt(req.params.id, 10);
-
-  if (id === 1) {
-    return res.json({ id: 1, value: 'Hello World' });
-  } else {
-    return res.status(404).json({ error: 'Example not found' });
-  }
-});
-
-/**
- * @openapi
- * /locations:
- *   get:
- *     summary: Get a list of all Lumio photo studio locations
- *     responses:
- *       200:
- *         description: List of available locations
- *   post:
- *     summary: Create a new location (admin only)
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               description:
- *                 type: string
- *               capacity:
- *                 type: integer
- *     responses:
- *       201:
- *         description: Location created
+ *         description: User not found
  *
- * /locations/{id}:
- *   get:
- *     summary: Get details of a specific location
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Location details
- *       404:
- *         description: Location not found
  *   put:
- *     summary: Update a location (admin only)
+ *     summary: Update a user's details
+ *     description: Updates the email, password, or admin status of a user.
+ *     tags:
+ *       - Users
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
+ *         description: UUID of the user to update
  *     requestBody:
  *       required: true
  *       content:
@@ -109,37 +117,91 @@ router.get('/:id', (req, res) => {
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               email:
  *                 type: string
- *               description:
+ *                 example: updated@example.com
+ *               password:
  *                 type: string
- *               capacity:
- *                 type: integer
+ *                 example: newpassword123
+ *               isAdmin:
+ *                 type: boolean
+ *                 example: true
  *     responses:
  *       200:
- *         description: Location updated
+ *         description: User successfully updated
+ *       400:
+ *         description: Invalid request data
+ *       404:
+ *         description: User not found
+ *
  *   delete:
- *     summary: Delete a location (admin only)
+ *     summary: Delete a user
+ *     description: Permanently removes a user from the system.
+ *     tags:
+ *       - Users
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
+ *         description: UUID of the user to delete
  *     responses:
  *       204:
- *         description: Location deleted
+ *         description: User deleted successfully
  *       404:
- *         description: Location not found
- *
+ *         description: User not found
+ */
+
+// /photo-zones
+/**
+ * @openapi
+ * /photo-zones:
+ *   get:
+ *     summary: Get a list of all Lumio photo zones
+ *     tags:
+ *       - Photo zones
+ *     responses:
+ *       200:
+ *         description: List of available photo zones
+ */
+
+// /photo-zones/{id}
+/**
+ * @openapi
+ * /photo-zones/{id}:
+ *   get:
+ *     summary: Get details of a specific photo zone
+ *     tags:
+ *       - Photo zones
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Photo zone details
+ *       404:
+ *         description: Photo zone not found
+ */
+
+// /reservations
+/**
+ * @openapi
  * /reservations:
  *   get:
  *     summary: Get all reservations for the logged-in user
+ *     tags:
+ *       - Reservations
  *     responses:
  *       200:
  *         description: List of reservations
  *   post:
  *     summary: Create a new reservation (user only)
+ *     tags:
+ *       - Reservations
  *     requestBody:
  *       required: true
  *       content:
@@ -161,10 +223,16 @@ router.get('/:id', (req, res) => {
  *     responses:
  *       201:
  *         description: Reservation created
- *
+ */
+
+// /reservations/{id}
+/**
+ * @openapi
  * /reservations/{id}:
  *   get:
  *     summary: Get details of a reservation
+ *     tags:
+ *       - Reservations
  *     parameters:
  *       - in: path
  *         name: id
@@ -176,35 +244,10 @@ router.get('/:id', (req, res) => {
  *         description: Reservation details
  *       404:
  *         description: Reservation not found
- *   put:
- *     summary: Update a reservation (user only)
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               date:
- *                 type: string
- *                 format: date
- *               startTime:
- *                 type: string
- *                 format: time
- *               endTime:
- *                 type: string
- *                 format: time
- *     responses:
- *       200:
- *         description: Reservation updated
  *   delete:
  *     summary: Cancel a reservation (user only)
+ *     tags:
+ *       - Reservations
  *     parameters:
  *       - in: path
  *         name: id

@@ -1,10 +1,10 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, camelcase */
 import {DataTypes, Sequelize} from "sequelize";
 
 const nodeEnv = process.env.NODE_ENV || 'dev';
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: `db/database.${nodeEnv}.sqlite`
+    storage: `../../db/database.${nodeEnv}.sqlite`
 });
 
 try {
@@ -14,7 +14,7 @@ try {
     console.error('Unable to connect to the database:', error);
 }
 
-const User = sequelize.define("User", {
+const Users = sequelize.define("Users", {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -29,13 +29,13 @@ const User = sequelize.define("User", {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    isAdmin: {
+    is_admin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },
 });
 
-const Location = sequelize.define('Location', {
+const Locations = sequelize.define('Locations', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -52,7 +52,7 @@ const Location = sequelize.define('Location', {
     description: DataTypes.TEXT,
 });
 
-const PhotoZone = sequelize.define("PhotoZone", {
+const PhotoZones = sequelize.define("PhotoZones", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -63,57 +63,57 @@ const PhotoZone = sequelize.define("PhotoZone", {
         allowNull: false,
     },
     description: DataTypes.TEXT,
-    maxDurationHours: {
+    max_duration_hours: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    maxReservationsPerUser: {
+    max_reservations_per_user: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    pricePerHour: {
+    price_per_hour: {
         type: DataTypes.INTEGER,
         allowNull: false,
     }
 });
 
-const Reservation = sequelize.define("Reservation", {
+const Reservations = sequelize.define("Reservations", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
-    startTime: {
+    start_time: {
         type: DataTypes.DATE,
         allowNull: false,
     },
-    durationHours: {
+    duration_hours: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
         allowNull: false,
     },
-    totalPrice: {
+    total_price: {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
 });
 
-// Location <-> PhotoZone (one-to-many)
-Location.hasMany(PhotoZone, {onDelete: 'CASCADE'});
-PhotoZone.belongsTo(Location);
+// Locations <-> PhotoZones (one-to-many)
+Locations.hasMany(PhotoZones, {onDelete: 'CASCADE'});
+PhotoZones.belongsTo(Locations);
 
-// PhotoZone <-> Reservation (one-to-many)
-PhotoZone.hasMany(Reservation, {onDelete: 'CASCADE'});
-Reservation.belongsTo(PhotoZone);
+// PhotoZones <-> Reservations (one-to-many)
+PhotoZones.hasMany(Reservations, {onDelete: 'CASCADE'});
+Reservations.belongsTo(PhotoZones);
 
-// User <-> Reservation (one-to-many)
-User.hasMany(Reservation, {onDelete: 'CASCADE'});
-Reservation.belongsTo(User);
+// Users <-> Reservations (one-to-many)
+Users.hasMany(Reservations, {onDelete: 'CASCADE'});
+Reservations.belongsTo(Users);
 
 await sequelize.sync({ force: true });
 
-export async function addUser(email, password, isAdmin = false) {
-    const user = await User.create({ email, password, isAdmin });
+export async function addUser(email, password, is_admin = false) {
+    const user = await Users.create({ email, password, is_admin });
     console.log("Created user:", user.email);
     return user;
 }
