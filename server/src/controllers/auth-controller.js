@@ -67,12 +67,7 @@ export async function login(req, res) {
             {expiresIn: '7d'}
         )
 
-        // TODO: See why refresh token isn't visible in database connection tool
-        // TODO: See why i am back at login page after refreshing the tab (Cmd + R)
         await user.update({refresh_token: refreshToken});
-        await user.reload(); // reload from DB
-        console.log();
-        console.log(user.refresh_token); // Prints the correct token but in my db resource in intellij i don't see it
 
         return res.json({
             message: "Login successful",

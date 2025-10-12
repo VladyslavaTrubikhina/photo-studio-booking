@@ -9,7 +9,7 @@ import bcrypt from "bcrypt";
 const nodeEnv = process.env.NODE_ENV || 'dev';
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: `../../db/database.${nodeEnv}.sqlite`
+    storage: `db/database.${nodeEnv}.sqlite`
 });
 
 // Models
@@ -31,7 +31,7 @@ Reservation.belongsTo(User);
 // Connect to DB + recreate tables
 try {
     await sequelize.authenticate();
-    await sequelize.sync();
+    await sequelize.sync({force: true});
     console.log(`Connection has been established successfully.`);
 } catch (error) {
     console.error('Unable to connect to the database:', error.message);
@@ -48,8 +48,8 @@ async function addUser(email, password, is_admin = false) {
     return user;
 }
 
-// await addUser("admin@photos.com", "adminpassword123", true);
-// await addUser("user@photos.com", "userpassword123");
+await addUser("admin@photos.com", "adminpassword123", true);
+await addUser("user@photos.com", "userpassword123");
 
 export {
     User,
