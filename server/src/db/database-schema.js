@@ -11,45 +11,34 @@ const sequelize = new Sequelize({
     storage: `../../db/database.${nodeEnv}.sqlite`
 });
 
-try {
-    await sequelize.authenticate();
-    console.log(`Connection has been established successfully. ${process.env.NODE_ENV}`);
-} catch (error) {
-    console.error('Unable to connect to the database:', error);
-}
-
+// Models
 const User = UserModel(sequelize);
 const Location = LocationModel(sequelize);
 const PhotoZone = PhotoZoneModel(sequelize);
 const Reservation = ReservationModel(sequelize);
 
-// Location <-> PhotoZone (one-to-many)
+// Relations
 Location.hasMany(PhotoZone, {onDelete: 'CASCADE'});
 PhotoZone.belongsTo(Location);
 
-// PhotoZone <-> Reservation (one-to-many)
 PhotoZone.hasMany(Reservation, {onDelete: 'CASCADE'});
 Reservation.belongsTo(PhotoZone);
 
-// User <-> Reservation (one-to-many)
 User.hasMany(Reservation, {onDelete: 'CASCADE'});
 Reservation.belongsTo(User);
 
-await sequelize.sync({ force: true });
-
-async function addUser(email, password, is_admin = false) {
-    const user = await User.create({ email, password, is_admin });
-    console.log("Created user:", user.email);
-    return user;
+// Connect to DB + recreate tables
+try {
+    await sequelize.authenticate();
+    await sequelize.sync();
+    console.log(`Connection has been established successfully.`);
+} catch (error) {
+    console.error('Unable to connect to the database:', error.message);
 }
-
-await addUser("admin@photos.com", "adminpassword123", true);
-await addUser("user@photos.com", "userpassword123");
 
 export {
     User,
     Location,
     PhotoZone,
     Reservation,
-    addUser,
 };

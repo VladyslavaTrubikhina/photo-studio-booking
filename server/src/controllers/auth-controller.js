@@ -1,4 +1,4 @@
-import { User } from "../db/database-helper.js";
+import { User } from "../db/database-schema.js";
 
 /**
  * @openapi
