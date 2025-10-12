@@ -33,6 +33,7 @@
     context = ctx;
   });
 
+  router("/login");
   router.start();
 </script>
 

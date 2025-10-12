@@ -1,4 +1,4 @@
-import { Users } from "../db/database-helper.js";
+import { User } from "../db/database-helper.js";
 
 /**
  * @openapi
@@ -47,7 +47,7 @@ export async function authenticate(req, res) {
     }
 
     try {
-        const user = await Users.findOne({where: {email: email}});
+        const user = await User.findOne({where: {email: email}});
 
         if (!user) {
             return res.status(401).json({ error: "Invalid email or password" });

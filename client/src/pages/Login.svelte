@@ -19,7 +19,8 @@
 
             if (!res.ok) {
                 error = data.error || "Login failed";
-            } else {
+            }
+            if (res.ok) {
                 router("/");
             }
 
