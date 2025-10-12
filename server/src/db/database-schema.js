@@ -4,6 +4,7 @@ import {UserModel} from "./models/User.js";
 import {LocationModel} from "./models/Location.js";
 import {PhotoZoneModel} from "./models/PhotoZone.js";
 import {ReservationModel} from "./models/Reservation.js";
+import bcrypt from "bcrypt";
 
 const nodeEnv = process.env.NODE_ENV || 'dev';
 const sequelize = new Sequelize({
@@ -36,9 +37,24 @@ try {
     console.error('Unable to connect to the database:', error.message);
 }
 
+async function addUser(email, password, is_admin = false) {
+    const passwordHash = await bcrypt.hash(password, 12);
+    const user = await User.create(
+        { email,
+            password: passwordHash,
+            is_admin
+        });
+    console.log("Created user:", user.email);
+    return user;
+}
+
+// await addUser("admin@photos.com", "adminpassword123", true);
+// await addUser("user@photos.com", "userpassword123");
+
 export {
     User,
     Location,
     PhotoZone,
     Reservation,
+    addUser,
 };

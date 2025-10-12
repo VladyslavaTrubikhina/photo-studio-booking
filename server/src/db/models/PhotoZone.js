@@ -24,5 +24,9 @@ export const PhotoZoneModel = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         }
-    });
+    },
+        {
+            timestamps: false
+        }
+    );
 };

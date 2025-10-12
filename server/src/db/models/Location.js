@@ -16,5 +16,9 @@ export const LocationModel = (sequelize) => {
             allowNull: false,
         },
         description: DataTypes.TEXT,
-    });
+    },
+        {
+            timestamps: false
+        }
+    );
 };

@@ -20,5 +20,9 @@ export const ReservationModel = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: true,
         },
-    });
+    },
+        {
+            timestamps: false
+        }
+    );
 };
