@@ -1,10 +1,8 @@
 <script>
   import router from "page";
-  import Home from "./pages/Home.svelte";
-  import About from "./pages/About.svelte";
   import Login from "./pages/Login.svelte";
+  import Home from "./pages/Home.svelte";
   import ExampleWithParams from "./pages/ExampleWithParams.svelte";
-  import Header from "./lib/Header.svelte";
 
   let currentRoute = $state("/");
   let Page = $state();
@@ -16,13 +14,8 @@
   });
 
   router("/", (ctx) => {
-    Page = Home;
-    currentRoute = ctx.pathname;
-  });
-
-  router("/about", (ctx) => {
-    Page = About;
-    currentRoute = ctx.pathname;
+      Page = Home;
+      currentRoute = ctx.pathname;
   });
 
   router("/example/:id", (ctx) => {
@@ -37,5 +30,4 @@
   router.start();
 </script>
 
-<Header active={currentRoute} />
 <Page {context} />

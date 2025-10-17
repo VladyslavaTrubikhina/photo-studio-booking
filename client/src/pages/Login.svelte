@@ -21,6 +21,9 @@
                 error = data.error || "Login failed";
             }
             if (res.ok) {
+                if (data?.accessToken) {
+                    localStorage.setItem("accessToken", data.accessToken);
+                }
                 router("/");
             }
 
