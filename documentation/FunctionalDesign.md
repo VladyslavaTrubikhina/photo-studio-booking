@@ -17,10 +17,10 @@ Table locations {
 
 Table photo_zones {
   id integer [pk]
+  name string,
+  picture string,
   style string
   description text
-  max_duration_hours integer
-  max_reservations_per_user integer 
   price_per_hour integer 
   location_id integer [ref: > locations.id]
 }

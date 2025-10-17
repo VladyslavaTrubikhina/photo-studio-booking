@@ -61,18 +61,9 @@ export async function login(req, res) {
             {expiresIn: '15m'}
         )
 
-        const refreshToken = jwt.sign(
-            { id: user.id, email: user.email, is_admin: user.is_admin },
-            process.env.REFRESH_TOKEN_SECRET,
-            {expiresIn: '7d'}
-        )
-
-        await user.update({refresh_token: refreshToken});
-
         return res.json({
             message: "Login successful",
             accessToken,
-            refreshToken,
             user: {
                 id: user.id,
                 email: user.email,

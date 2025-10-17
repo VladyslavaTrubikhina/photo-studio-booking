@@ -16,9 +16,6 @@ export const UserModel = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        refresh_token: {
-            type: DataTypes.STRING,
-        },
         is_admin: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
