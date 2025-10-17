@@ -3,6 +3,7 @@ import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './swagger-config.js';
 import authRouter from './routes/auth-router.js';
+import photoZonesRouter from "./routes/photo_zones-router.js";
 
 const nodeEnv = process.env.NODE_ENV || 'dev';
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors()); // TODO make sure it blocks everything except localhost port 41
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/auth', authRouter);
+app.use('/zones', photoZonesRouter);
 
 // Global error handler. In your code, throw an object with a status and message, and it will be caught here. We ignore one eslint call here, because next is needed.
 // eslint-disable-next-line no-unused-vars
