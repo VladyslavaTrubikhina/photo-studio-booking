@@ -28,7 +28,7 @@
         </div>
         <nav class="flex space-x-8">
           <a href="/" class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
-          <a href="/about" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
+          <a href="/reservations" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">My reservations</a>
           <a href="/example/testValue?key1=value1&key2=value2" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Example</a>
         </nav>
         <div class="flex items-center space-x-4">
