@@ -1,7 +1,8 @@
 <script>
     import Button from "../lib/Button.svelte";
-    import InputField from "../lib/InputField.svelte";
+    import Input from "../lib/Input.svelte";
     import router from "page";
+    import Error from "../lib/Error.svelte";
 
     let email = "";
     let password = "";
@@ -34,28 +35,30 @@
     }
 </script>
 
-<div class="flex justify-center items-center min-h-screen bg-neutral-300">
+<div class="flex justify-center items-center min-h-screen bg-neutral-200">
     <form class="bg-white p-8 rounded-xl shadow-md w-full max-w-sm" on:submit|preventDefault={handleLogin}>
         <h2 class="text-2xl font-bold mb-6 text-center text-neutral-800">Login</h2>
-        <InputField
-                id="email"
-                label="Email"
-                type="email"
-                placeholder="you@example.com"
-                bind:value={email}
-        />
-        <InputField
-                id="password"
-                label="Password"
-                type="password"
-                placeholder="********"
-                bind:value={password}
-        />
+        <div class="mb-4">
+            <Input
+                    id="email"
+                    label="Email"
+                    type="email"
+                    placeholder="you@example.com"
+                    bind:value={email}
+            />
+        </div>
+        <div class="mb-4">
+            <Input
+                    id="password"
+                    label="Password"
+                    type="password"
+                    placeholder="********"
+                    bind:value={password}
+            />
+        </div>
         {#if error}
-            <p class="text-red-400 mb-4 text-center">{error}</p>
+            <Error message="{error}"/>
         {/if}
-        <Button>
-            Log In
-        </Button>
+        <Button fullWidth>Log In</Button>
     </form>
 </div>

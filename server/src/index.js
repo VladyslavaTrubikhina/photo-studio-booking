@@ -3,11 +3,16 @@ import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './swagger-config.js';
 import authRouter from './routes/auth-router.js';
-import photoZonesRouter from "./routes/photo_zones-router.js";
+import photoZonesRouter from "./routes/photo-zones-router.js";
+import { seedDatabase } from "./db/seeder.js";
 
 const nodeEnv = process.env.NODE_ENV || 'dev';
 const app = express();
 const port = 3000;
+
+if (process.env.NODE_ENV === 'dev') {
+    await seedDatabase();
+}
 
 // Set up basic JSON parsing and CORS headers
 app.use(express.json());

@@ -60,11 +60,6 @@ async function addPhotoZone(picture, name, style, description, price_per_hour) {
     return photoZone;
 }
 
-await addUser("admin@photos.com", "adminpassword123", true);
-await addUser("user@photos.com", "userpassword123");
-await addPhotoZone("https://www.google.com/url?sa=i&url=https%3A%2F%2Fphoto-trips.com%2Fexperience%2Fcyberpunk-studio-photoshoot-futuristic%2F&psig=AOvVaw14smdoD7zDT2Wq7R4uk2kF&ust=1760811578434000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCLDttLfsq5ADFQAAAAAdAAAAABAU", "Zone 1", "Futuristic", "Very good zone", 50);
-await addPhotoZone("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.canonoutsideofauto.ca%2F2024%2F10%2F21%2F7-inspiring-home-photography-studio-ideas-to-ignite-your-creativity%2F&psig=AOvVaw2NB0DYOOGZ5gkhE56NJUeN&ust=1760811706100000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCKjz7vLsq5ADFQAAAAAdAAAAABAE", "Zone 2", "Minimalistic", "Very good zone", 30);
-await addPhotoZone("https://www.google.com/url?sa=i&url=https%3A%2F%2Funhingedstudioatx.com%2Fcute&psig=AOvVaw3ewMgk0sFb2KxTxkdTAq1j&ust=1760811746740000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCIjpq4btq5ADFQAAAAAdAAAAABAE", "Zone 3", "Cute", "Very good zone", 40);
 
 export {
     User,
@@ -72,4 +67,5 @@ export {
     PhotoZone,
     Reservation,
     addUser,
+    addPhotoZone,
 };

@@ -6,7 +6,7 @@
     export let value = "";
 </script>
 
-<div class="mb-4">
+<div class="w-full">
     {#if label}
         <label class="block text-neutral-700 mb-2" for={id}>{label}</label>
     {/if}
@@ -15,6 +15,6 @@
             type={type}
             bind:value
             placeholder={placeholder}
-            class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-400"
+            class="w-full px-4 py-2 rounded-xl border border-neutral-400 bg-white text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-neutral-400"
     />
 </div>

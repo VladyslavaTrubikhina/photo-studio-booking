@@ -21,14 +21,14 @@
   {/if}
   <div class="px-4 py-5 sm:p-6">
     <h3 class="text-lg font-medium text-neutral-900">{zone.name || 'Unnamed Zone'}</h3>
-    {#if zone.description}
-      <p class="mt-2 text-sm text-neutral-600">{zone.description}</p>
+    {#if zone.style}
+      <p class="mt-2 text-sm text-neutral-600">{zone.style}</p>
     {/if}
     {#if zone.location}
       <p class="mt-1 text-sm text-neutral-500">📍 {zone.location}</p>
     {/if}
-    <div class="mt-5 flex gap-2" >
-      <slot><Button color="light">Details</Button></slot>
+    <div class="mt-4 flex gap-2" >
+      <slot><Button color="light" fullWidth>Details</Button></slot>
     </div>
   </div>
 </div>
