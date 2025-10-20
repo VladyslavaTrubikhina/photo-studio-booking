@@ -1,40 +1,20 @@
 <script>
-  import { createEventDispatcher } from "svelte";
-  import Button from "./Button.svelte";
-  import { Search } from '@lucide/svelte';
-  import Input from "./Input.svelte";
+  import { Search } from "@lucide/svelte";
 
-
-  let { value = "", onSearch } = $props();
-
-  const dispatch = createEventDispatcher();
-
-  function handleInput(e) {
-    value = e.target.value;
-    dispatch("search", { value });
-    onSearch?.(value);
-  }
-
+  export let value = "";
 </script>
 
-<div class="w-full flex items-center justify-between mb-6">
-  <h2 class="text-2xl font-bold text-neutral-700">
-    Photo zones
-  </h2>
-
-  <div class="w-full md:w-1/3">
-    <div class="flex items-center gap-2 justify-between">
-      <Input
-        id="search-input"
-        type="search"
-        placeholder="Search..."
-        value={value}
-        on:input={handleInput}
-      />
-      <Button color="light" on:click={() => { dispatch("submit", { value }); onSearch?.(value); }}>
-        <Search color="#525252"></Search>
-      </Button>
+<div class="w-full md:w-1/3">
+  <div class="flex items-center rounded-xl bg-white border border-neutral-400">
+    <div class="pl-3 py-2 ">
+      <Search color="#737373" class="w-5 h-5"/>
     </div>
+    <input
+            id="search-input"
+            type="search"
+            placeholder="Search name, location or style..."
+            class="w-full px-3 py-2 rounded-r-xl bg-white text-neutral-800 placeholder-neutral-400 focus:outline-none"
+            bind:value
+    />
   </div>
 </div>
-

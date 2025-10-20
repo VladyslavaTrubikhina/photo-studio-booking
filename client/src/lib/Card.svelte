@@ -20,14 +20,18 @@
     </div>
   {/if}
   <div class="px-4 py-5 sm:p-6">
-    <h3 class="text-lg font-medium text-neutral-900">{zone.name || 'Unnamed Zone'}</h3>
+    <div class="flex items-center justify-between">
+      <h3 class="text-lg font-medium text-neutral-900">{zone.name || 'Unnamed Zone'}</h3>
+      <h3 class="text-xl font-medium text-neutral-900">{zone.price_per_hour} €</h3>
+    </div>
+<!--    remove style after locations added-->
     {#if zone.style}
       <p class="mt-2 text-sm text-neutral-600">{zone.style}</p>
     {/if}
     {#if zone.location}
       <p class="mt-1 text-sm text-neutral-500">📍 {zone.location}</p>
     {/if}
-    <div class="mt-4 flex gap-2" >
+    <div class="mt-4 flex gap-2 justify-end" >
       <slot><Button color="light" fullWidth>Details</Button></slot>
     </div>
   </div>
