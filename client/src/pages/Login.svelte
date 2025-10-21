@@ -57,7 +57,7 @@
             />
         </div>
         {#if error}
-            <Error message="{error}"/>
+            <Error>{error}</Error>
         {/if}
         <Button fullWidth onClick={() => {}}>Log In</Button>
     </form>

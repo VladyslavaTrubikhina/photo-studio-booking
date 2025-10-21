@@ -3,6 +3,7 @@
     import {X} from "@lucide/svelte";
     import Input from "./Input.svelte";
     import SummaryRow from "./SummaryRow.svelte";
+    import Error from "./Error.svelte";
 
     export let zone;
     export let style = "normal";
@@ -14,8 +15,9 @@
 
     let date;
     let time;
-    let duration = 0;
+    let duration;
     $: totalPrice = duration * zone.price_per_hour;
+    let error;
 
 </script>
 
@@ -52,10 +54,11 @@
                 <h3 class="text-lg font-medium text-neutral-900 mb-2">Summary</h3>
                 <SummaryRow name="Date:">{date}</SummaryRow>
                 <SummaryRow name="Time:">{time}</SummaryRow>
-                <SummaryRow name="Duration hours:">{duration}</SummaryRow>
+                <SummaryRow name="Duration hours:">{duration || 0}</SummaryRow>
                 <SummaryRow name="Total price:">{totalPrice}€</SummaryRow>
             {/if}
         </div>
+        <Error>{error}</Error>
         <div class="flex justify-end pt-10">
             <Button onClick={() => {}}>Book for
                 specified date and time

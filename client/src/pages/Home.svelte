@@ -88,7 +88,7 @@
                     </div>
                 {:else if error}
                     <div class="text-center py-8">
-                        <Error message="{error}"/>
+                        <Error>{error}</Error>
                     </div>
                 {:else if photoZones.length === 0}
                     <div class="text-center py-8">
