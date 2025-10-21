@@ -32,7 +32,7 @@
       <p class="mt-1 text-sm text-neutral-500">📍 {zone.location}</p>
     {/if}
     <div class="mt-4 flex gap-2 justify-end" >
-      <slot><Button color="light" fullWidth>Details</Button></slot>
+      <slot><Button color="light" fullWidth onClick={() => {}}>Details</Button></slot>
     </div>
   </div>
 </div>
