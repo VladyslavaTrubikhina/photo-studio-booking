@@ -5,7 +5,7 @@
     let {zone, style = "normal", onClick} = $props();
 
     const styles = {
-        normal: "bg-white overflow-hidden shadow-2xl rounded-xl w-200 h-150 m-20 relative",
+        normal: "bg-white overflow-hidden shadow-2xl rounded-xl w-200 m-20 relative",
     };
 
 </script>
