@@ -16,7 +16,7 @@
 {#if color !== "link"}
     <button
             on:click={onClick}
-            class={`px-3 py-2 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${colorSettings} ${fullWidth ? 'w-full' : 'w-auto'}`}
+            class={`flex items-center px-3 py-2 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${colorSettings} ${fullWidth ? 'w-full' : 'w-auto'}`}
     >
         <slot>Button</slot>
     </button>

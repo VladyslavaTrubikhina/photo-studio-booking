@@ -1,6 +1,7 @@
 <script>
     import Button from "./Button.svelte";
     import router from "page";
+    import {LogOut} from "@lucide/svelte";
 
     function handleLogout() {
         localStorage.removeItem("accessToken");
@@ -23,7 +24,10 @@
                 </Button>
             </div>
             <div class="flex items-center space-x-4">
-                <Button onClick={handleLogout} color="light">Logout</Button>
+                <Button onClick={handleLogout} color="light">
+                    Logout
+                    <LogOut color="#525252" class="ml-2 w-4 h-4"/>
+                </Button>
             </div>
         </div>
     </div>

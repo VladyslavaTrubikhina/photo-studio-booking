@@ -3,7 +3,7 @@
     import Error from "../lib/Error.svelte";
     import Header from "../lib/Header.svelte";
     import Button from "../lib/Button.svelte";
-    import PageSearchBar from "../lib/PageSearchBar.svelte";
+    import SearchBar from "../lib/SearchBar.svelte";
     import {onMount} from "svelte";
     import {createSearchStore, searchHandler} from "../utils/stores/searchStore.js";
     import DetailsPopup from "../lib/DetailsPopup.svelte";
@@ -80,7 +80,7 @@
             <div class="px-4 py-6 sm:px-0">
                 <div class="w-full flex items-center justify-between mb-6">
                     <h2 class="text-2xl font-bold text-neutral-700">Photo zones</h2>
-                    <PageSearchBar bind:value={$searchStore.search}/>
+                    <SearchBar bind:value={$searchStore.search}/>
                 </div>
                 {#if loading}
                     <div class="text-center py-8">
