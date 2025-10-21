@@ -48,18 +48,29 @@ async function addUser(email, password, is_admin = false) {
     return user;
 }
 
-async function addPhotoZone(picture, name, style, description, price_per_hour) {
+async function addLocation(city, address, description){
+    const location = await Location.create(
+        {
+            city,
+            address,
+            description,
+        });
+    console.log("Created location:", location.address);
+    return location;
+}
+
+async function addPhotoZone(picture, name, style, description, price_per_hour, locationId) {
     const photoZone = await PhotoZone.create(
         { picture,
             name,
             style,
             description,
-            price_per_hour
+            price_per_hour,
+            location: locationId,
         });
     console.log("Created user:", photoZone.name);
     return photoZone;
 }
-
 
 export {
     User,
@@ -67,5 +78,6 @@ export {
     PhotoZone,
     Reservation,
     addUser,
+    addLocation,
     addPhotoZone,
 };

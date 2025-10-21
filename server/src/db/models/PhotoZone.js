@@ -23,6 +23,10 @@ export const PhotoZoneModel = (sequelize) => {
         price_per_hour: {
             type: DataTypes.INTEGER,
             allowNull: false,
+        },
+        location: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
         }
     },
         {
