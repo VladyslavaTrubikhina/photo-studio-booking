@@ -1,11 +1,10 @@
 <script>
   import Button from "./Button.svelte";
-  import page from "page";
   import router from "page";
 
   function handleLogout() {
     localStorage.removeItem("accessToken");
-    page("/login");
+    router("/login");
   }
 </script>
 
@@ -13,7 +12,7 @@
   <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       <div class="flex items-center">
-        <h1 class="text-xl font-semibold text-neutral-200">Lumio studio</h1>
+        <button class="text-xl font-semibold text-neutral-200 cursor-pointer" on:click={() => router("/")}>Lumio studio</button>
       </div>
       <div class="flex space-x-8">
         <Button color="link" onClick={() => router("/")}>Home</Button>

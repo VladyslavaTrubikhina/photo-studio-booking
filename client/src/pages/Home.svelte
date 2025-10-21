@@ -4,7 +4,7 @@
   import Header from "../lib/Header.svelte";
   import Button from "../lib/Button.svelte";
   import PageSearchBar from "../lib/PageSearchBar.svelte";
-  import {onDestroy, onMount} from "svelte";
+  import {onMount} from "svelte";
   import {createSearchStore, searchHandler} from "../utils/stores/searchStore.js";
 
   let photoZones = [];
@@ -12,7 +12,6 @@
   let loading = true;
   let error = "";
   let searchStore;
-  let unsubscribe;
 
   async function fetchPhotoZones() {
     try {
@@ -41,7 +40,7 @@
         searchable: `${zone.name} ${zone.location} ${zone.style}`
       }));
       searchStore = createSearchStore(searchableZones);
-      unsubscribe = searchStore.subscribe((model) => searchHandler(model));
+      searchStore.subscribe((model) => searchHandler(model));
     } catch (err) {
       console.error("Error fetching photo zones:", err);
       error = "Failed to load photo zones";
@@ -51,7 +50,6 @@
   }
 
   onMount(fetchPhotoZones);
-  onDestroy(unsubscribe);
 </script>
 
 <div class="min-h-screen bg-neutral-50">

@@ -4,9 +4,9 @@
     export let onClick;
 
     const colors = {
-        dark: "text-neutral-100 bg-neutral-700 cursor-pointer hover:bg-neutral-800",
-        light: "text-neutral-600 bg-neutral-300 cursor-pointer hover:bg-neutral-400",
-        link: "text-neutral-200 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-neutral-400",
+        dark: "text-neutral-100 bg-neutral-700 cursor-pointer hover:bg-neutral-800 focus:outline-none",
+        light: "text-neutral-600 bg-neutral-300 cursor-pointer hover:bg-neutral-400 focus:outline-none",
+        link: "text-neutral-200 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-neutral-400 focus:outline-none",
     };
 
     let colorSettings = colors[color];
