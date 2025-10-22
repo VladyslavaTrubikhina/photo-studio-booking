@@ -16,7 +16,7 @@
 </script>
 
 <div class="my-6 sm:px-0 flex-col justify-items-center">
-    <div class="w-1/2 mb-8 px-7 py-7">
+    <div class="w-1/2 mb-8 p-7">
         <div class="w-full mt-6 space-y-4">
             <Input
                     id="email"

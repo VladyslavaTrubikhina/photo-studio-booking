@@ -18,13 +18,10 @@
                 </button>
             </div>
             <div class="flex space-x-8">
-                <Button color="light_link" onClick={() => router("/")}><span class="text-sm">Home</span></Button>
-                <Button color="light_link" onClick={() => router("/reservations")}><span
-                        class="text-sm">My reservations</span></Button>
-                <Button color="light_link" onClick={() => router("/users")}><span class="text-sm">Profile</span>
-                </Button>
-                <Button color="light_link" onClick={() => router("/example/testValue?key1=value1&key2=value2")}><span
-                        class="text-sm">Example</span></Button>
+                <Button color="light_link" onClick={() => router("/")}>Home</Button>
+                <Button color="light_link" onClick={() => router("/reservations")}>My reservations</Button>
+                <Button color="light_link" onClick={() => router("/users")}>Profile</Button>
+                <Button color="light_link" onClick={() => router("/example/testValue?key1=value1&key2=value2")}>Example</Button>
             </div>
             <div class="flex items-center space-x-4">
                 <Button onClick={handleLogout} color="light">

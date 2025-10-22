@@ -36,7 +36,7 @@
         <div class="px-4 sm:px-0">
             <h2 class="w-full flex justify-center text-2xl font-medium text-neutral-700 mb-5">My reservations</h2>
             {#if error}
-                <Error>{error}</Error>
+                <Error fullWidth>{error}</Error>
             {:else if reservations.length === 0}
                 <p class="text-neutral-500 text-center">No reservations yet</p>
             {:else }

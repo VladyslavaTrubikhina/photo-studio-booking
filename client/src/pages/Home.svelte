@@ -12,7 +12,7 @@
     let photoZones = [];
     let searchableZones;
     let loading = true;
-    let error = "";
+    let error;
     let searchStore;
     let clickedZone;
     let detailsPopup = false;
@@ -88,7 +88,7 @@
                     </div>
                 {:else if error}
                     <div class="text-center py-8">
-                        <Error>{error}</Error>
+                        <Error fullWidth>{error}</Error>
                     </div>
                 {:else if photoZones.length === 0}
                     <div class="text-center py-8">

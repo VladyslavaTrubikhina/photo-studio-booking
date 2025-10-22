@@ -4,9 +4,9 @@
     import router from "page";
     import Error from "../lib/Error.svelte";
 
-    let email = "";
-    let password = "";
-    let error = "";
+    let email;
+    let password;
+    let error;
 
     async function handleLogin() {
         try {
@@ -36,8 +36,11 @@
 </script>
 
 <div class="flex justify-center items-center min-h-screen bg-neutral-100">
-    <form class="bg-white p-8 rounded-xl shadow-md w-full max-w-sm" on:submit|preventDefault={handleLogin}>
+    <form class="bg-white p-8 rounded-xl shadow-md w-full max-w-sm">
         <h2 class="text-2xl font-medium mb-6 text-center text-neutral-800">Login</h2>
+        {#if error}
+            <Error fullWidth>{error}</Error>
+        {/if}
         <div class="mb-4">
             <Input
                     id="email"
@@ -56,9 +59,16 @@
                     bind:value={password}
             />
         </div>
-        {#if error}
-            <Error>{error}</Error>
-        {/if}
-        <Button fullWidth onClick={() => {}}>Log In</Button>
+        <Button
+                fullWidth
+                onClick={(e) => {
+                    e.preventDefault();
+                    handleLogin();
+                }}>
+            Log In
+        </Button>
+        <Button fullWidth color="dark_link" onClick={() => {}}>
+            <span class="border-b-1 border-b-neutral-700">Register new account</span>
+        </Button>
     </form>
 </div>

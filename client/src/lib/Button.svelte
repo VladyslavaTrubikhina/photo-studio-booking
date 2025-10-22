@@ -7,8 +7,8 @@
         dark: "text-neutral-100 bg-neutral-700 cursor-pointer hover:bg-neutral-800 focus:outline-none",
         light: "text-neutral-600 bg-neutral-300 cursor-pointer hover:bg-neutral-400 focus:outline-none",
         delete: "text-white bg-red-700 cursor-pointer hover:bg-red-900 focus:outline-none",
-        light_link: "text-neutral-200 px-2 py-2 font-medium transition-colors hover:text-neutral-400 focus:outline-none",
-        dark_link: "text-neutral-700 px-2 py-2 font-medium transition-colors hover:text-neutral-400 focus:outline-none",
+        light_link: "text-neutral-200 px-2 py-2 text-sm transition-colors hover:text-neutral-400 focus:outline-none",
+        dark_link: "text-neutral-700 px-2 text-sm py-2 transition-colors hover:text-neutral-400 focus:outline-none",
     };
 
     let colorSettings = colors[color];
@@ -25,6 +25,6 @@
 {:else if color.includes('link')}
     <button
             on:click={onClick}
-            class={`${colorSettings}`}
+            class={`${colorSettings} ${fullWidth ? 'w-full' : 'w-auto'}`}
     ><slot></slot></button>
 {/if}

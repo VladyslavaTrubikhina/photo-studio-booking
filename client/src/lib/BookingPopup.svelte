@@ -1,6 +1,6 @@
 <script>
     import Button from "./Button.svelte";
-    import {X} from "@lucide/svelte";
+    import {X, Clock} from "@lucide/svelte";
     import Input from "./Input.svelte";
     import SummaryRow from "./SummaryRow.svelte";
     import Error from "./Error.svelte";
@@ -58,10 +58,13 @@
                 <SummaryRow name="Total price:">{totalPrice} €</SummaryRow>
             {/if}
         </div>
-        <Error>{error}</Error>
+        {#if error}
+            <Error fullWidth>{error}</Error>
+        {/if}
         <div class="flex justify-end pt-10">
-            <Button onClick={() => {}}>Book for
-                specified date and time
+            <Button onClick={() => {}}>
+                <Clock class="h-4 w-4 mr-2"></Clock>
+                Book for specified date and time
             </Button>
         </div>
     </div>
