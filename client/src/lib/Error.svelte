@@ -1,1 +1,1 @@
-<p class="text-red-400 mb-4 text-center"><slot></slot></p>
+<p class="text-red-600 mb-4 text-center"><slot></slot></p>

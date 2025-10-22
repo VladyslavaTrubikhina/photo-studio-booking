@@ -4,6 +4,7 @@
     export let type = "text";
     export let placeholder = "";
     export let value = "";
+    export let disabled = false;
 </script>
 
 <div class="w-full">
@@ -15,6 +16,7 @@
             type={type}
             bind:value
             placeholder={placeholder}
-            class="w-full px-4 py-2 rounded-xl border border-neutral-400 bg-white text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-neutral-400"
+            disabled={disabled}
+            class="w-full px-4 py-2 rounded-xl border border-neutral-400 bg-white text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-neutral-400 disabled:text-neutral-400"
     />
 </div>
