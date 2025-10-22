@@ -4,6 +4,7 @@
     import Home from "./pages/Home.svelte";
     import ExampleWithParams from "./pages/ExampleWithParams.svelte";
     import MyReservations from "./pages/MyReservations.svelte";
+    import Profile from "./pages/Profile.svelte";
 
     let currentRoute = $state("/");
     let Page = $state();
@@ -19,6 +20,10 @@
 
     router("/reservations", () => {
         Page = MyReservations;
+    });
+
+    router("/users", () => {
+        Page = Profile;
     });
 
     router("/example/:id", (ctx) => {

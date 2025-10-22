@@ -7,6 +7,10 @@ export const ReservationModel = (sequelize) => {
             autoIncrement: true,
             primaryKey: true,
         },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         date: {
             type: DataTypes.DATE,
             allowNull: false,

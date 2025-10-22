@@ -53,9 +53,9 @@
             {#if date && time}
                 <h3 class="text-lg font-medium text-neutral-900 mb-2">Summary</h3>
                 <SummaryRow name="Date:">{date}</SummaryRow>
-                <SummaryRow name="Time:">{time}</SummaryRow>
-                <SummaryRow name="Duration hours:">{duration || 0}</SummaryRow>
-                <SummaryRow name="Total price:">{totalPrice}€</SummaryRow>
+                <SummaryRow name="Start time:">{time}</SummaryRow>
+                <SummaryRow name="Duration hours:">{duration || 0} h</SummaryRow>
+                <SummaryRow name="Total price:">{totalPrice} €</SummaryRow>
             {/if}
         </div>
         <Error>{error}</Error>

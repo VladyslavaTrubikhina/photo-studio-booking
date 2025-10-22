@@ -35,9 +35,9 @@
     }
 </script>
 
-<div class="flex justify-center items-center min-h-screen bg-neutral-200">
+<div class="flex justify-center items-center min-h-screen bg-neutral-100">
     <form class="bg-white p-8 rounded-xl shadow-md w-full max-w-sm" on:submit|preventDefault={handleLogin}>
-        <h2 class="text-2xl font-bold mb-6 text-center text-neutral-800">Login</h2>
+        <h2 class="text-2xl font-medium mb-6 text-center text-neutral-800">Login</h2>
         <div class="mb-4">
             <Input
                     id="email"

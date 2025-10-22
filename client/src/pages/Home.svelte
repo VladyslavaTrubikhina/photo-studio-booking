@@ -67,7 +67,7 @@
     onMount(fetchPhotoZones);
 </script>
 
-<div class="min-h-screen bg-neutral-50">
+<div class="min-h-screen bg-neutral-100">
     {#if detailsPopup}
         <DetailsPopup zone={clickedZone} onClick={() => {handleDetails(null)}}/>
     {/if}
@@ -79,7 +79,7 @@
         {#if searchStore}
             <div class="px-4 py-6 sm:px-0">
                 <div class="w-full flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-bold text-neutral-700">Photo zones</h2>
+                    <h2 class="text-2xl font-medium text-neutral-700">Photo zones</h2>
                     <SearchBar bind:value={$searchStore.search}/>
                 </div>
                 {#if loading}
