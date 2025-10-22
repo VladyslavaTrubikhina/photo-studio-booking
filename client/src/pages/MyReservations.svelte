@@ -3,6 +3,7 @@
     import ReservationCard from "../lib/ReservationCard.svelte";
     import Button from "../lib/Button.svelte";
     import Error from "../lib/Error.svelte";
+    import {getCurrentUser} from "../utils/usersHelper.js";
 
     let activeTab = 'current'
     let reservations = [
@@ -24,6 +25,7 @@
     }
     ];
     let error;
+    let user = getCurrentUser();
 
     function handleCancel(id) {
         reservations = reservations.filter(r => r.id !== id);
@@ -58,6 +60,7 @@
                     <ReservationCard
                             activeTab={activeTab}
                             reservation={reservation}
+                            user={user}
                             onCancel={() => {handleCancel(reservation.id)}}
                     ></ReservationCard>
                 {/each}
