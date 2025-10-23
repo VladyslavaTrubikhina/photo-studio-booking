@@ -1,14 +1,11 @@
 <script>
     import Button from "./Button.svelte";
     import router from "page";
-    import {LogOut} from "@lucide/svelte";
+    import {LogOut, LogIn, UserPlus} from "@lucide/svelte";
+    import {isLoggedIn, logout, login} from "../utils/stores/authStore.js";
 
     let {pages} = $props();
 
-    function handleLogout() {
-        localStorage.removeItem("accessToken");
-        router("/login");
-    }
 </script>
 
 <header class="bg-neutral-700 shadow-md sticky top-0 z-10">
@@ -20,15 +17,28 @@
                 </button>
             </div>
             <div class="flex space-x-8">
-                {#each pages as page (page.name)}
-                    <Button color="light_link" onClick={() => router(page.route)}>{page.name}</Button>
-                {/each}
+                {#if $isLoggedIn}
+                    {#each pages as page (page.name)}
+                        <Button color="light_link" onClick={() => router(page.route)}>{page.name}</Button>
+                    {/each}
+                {/if}
             </div>
             <div class="flex items-center space-x-4">
-                <Button onClick={handleLogout} color="light">
-                    Logout
-                    <LogOut color="#525252" class="ml-2 w-4 h-4"/>
-                </Button>
+                {#if $isLoggedIn}
+                    <Button onClick={logout} color="light">
+                        Logout
+                        <LogOut color="#525252" class="ml-2 w-4 h-4"/>
+                    </Button>
+                {:else}
+                    <Button onClick={login} color="light">
+                        Login
+                        <LogIn color="#525252" class="ml-2 w-4 h-4"/>
+                    </Button>
+                    <Button onClick={() => {router("/register")}} color="light">
+                        Register
+                        <UserPlus color="#525252" class="ml-2 w-4 h-4"/>
+                    </Button>
+                {/if}
             </div>
         </div>
     </div>

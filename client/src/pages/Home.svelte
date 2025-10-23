@@ -7,6 +7,7 @@
     import {createSearchStore, searchHandler} from "../utils/stores/searchStore.js";
     import DetailsPopup from "../lib/DetailsPopup.svelte";
     import BookingPopup from "../lib/BookingPopup.svelte";
+    import {isLoggedIn} from "../utils/stores/authStore.js";
 
     let photoZones = [];
     let searchableZones;
@@ -20,16 +21,9 @@
     async function fetchPhotoZones() {
         try {
             loading = true;
-            const token = localStorage.getItem("accessToken");
-
-            if (!token) {
-                error = "Please log in again.";
-            }
 
             const response = await fetch("http://localhost:3000/zones", {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                }
+                method: "GET"
             });
 
             const data = await response.json();
@@ -100,7 +94,9 @@
                     {#each $searchStore.filtered as zone (zone.id)}
                         <Card {zone}>
                             <Button color="light" onClick={() => {handleDetails(zone)}}>Details</Button>
-                            <Button onClick={() => {handleBooking(zone)}}>Book now</Button>
+                            {#if $isLoggedIn}
+                                <Button onClick={() => {handleBooking(zone)}}>Book now</Button>
+                            {/if}
                         </Card>
                     {/each}
                 </div>

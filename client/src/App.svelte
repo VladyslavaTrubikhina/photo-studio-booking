@@ -35,18 +35,16 @@
         context = ctx;
     });
 
-    router("/login");
+    router("/");
     router.start();
 </script>
 
 {#if Page !== Login}
-    <Header
-        pages={[
-            {route: "/", name: "Home"},
-            {route: "/reservations", name: "My reservations"},
-            {route: "/users", name: "Profile"},
-            {route: "/example/testValue?key1=value1&key2=value2", name: "Example"},
-        ]}
-    />
+    <Header pages={[
+        {route: "/", name: "Home"},
+        {route: "/reservations", name: "My reservations"},
+        {route: "/users", name: "Profile"},
+        {route: "/example/testValue?key1=value1&key2=value2", name: "Example"},
+    ]}/>
 {/if}
 <Page {context}/>
