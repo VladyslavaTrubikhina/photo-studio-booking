@@ -1,7 +1,6 @@
 <script>
     // The context, including the parameters is passed in through $props
     // @see https://svelte.dev/tutorial/svelte/declaring-props
-    import Header from "../lib/Header.svelte";
 
     let {context} = $props();
 
@@ -12,10 +11,8 @@
     }
 </script>
 
-<div class="min-h-screen bg-neutral-50">
-    <Header/>
+<div class="pt-12 min-h-screen bg-neutral-50">
     <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="px-4 py-6 sm:px-0">
             <h1 class="text-3xl font-bold underline">Example page with parameters</h1>
             <p>
                 This page demonstrates how parameters can be passed through the <a
@@ -62,6 +59,5 @@
             >https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams</a
             > for more information on URLSearchParams.
             </p>
-        </div>
     </main>
 </div>

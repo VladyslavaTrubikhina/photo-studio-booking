@@ -1,7 +1,6 @@
 <script>
     import Card from "../lib/Card.svelte";
     import Error from "../lib/Error.svelte";
-    import Header from "../lib/Header.svelte";
     import Button from "../lib/Button.svelte";
     import SearchBar from "../lib/SearchBar.svelte";
     import {onMount} from "svelte";
@@ -67,48 +66,45 @@
     onMount(fetchPhotoZones);
 </script>
 
-<div class="min-h-screen bg-neutral-100">
+<div class="pt-15 min-h-screen bg-neutral-100">
     {#if detailsPopup}
         <DetailsPopup zone={clickedZone} onClick={() => {handleDetails(null)}}/>
     {/if}
     {#if bookingPopup}
         <BookingPopup zone={clickedZone} onClick={() => {handleBooking(null)}}/>
     {/if}
-    <Header/>
     <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         {#if searchStore}
-            <div class="px-4 py-6 sm:px-0">
-                <div class="w-full flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-medium text-neutral-700">Photo zones</h2>
-                    <SearchBar bind:value={$searchStore.search}/>
-                </div>
-                {#if loading}
-                    <div class="text-center py-8">
-                        <p class="text-gray-500">Loading photo zones...</p>
-                    </div>
-                {:else if error}
-                    <div class="text-center py-8">
-                        <Error fullWidth>{error}</Error>
-                    </div>
-                {:else if photoZones.length === 0}
-                    <div class="text-center py-8">
-                        <p class="text-neutral-500">No photo zones available</p>
-                    </div>
-                {:else if $searchStore.filtered.length === 0}
-                    <div class="text-center py-8">
-                        <p class="text-neutral-500">No photo zones with this name</p>
-                    </div>
-                {:else}
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {#each $searchStore.filtered as zone (zone.id)}
-                            <Card {zone}>
-                                <Button color="light" onClick={() => {handleDetails(zone)}}>Details</Button>
-                                <Button onClick={() => {handleBooking(zone)}}>Book now</Button>
-                            </Card>
-                        {/each}
-                    </div>
-                {/if}
+            <div class="w-full flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-medium text-neutral-700">Photo zones</h2>
+                <SearchBar bind:value={$searchStore.search}/>
             </div>
+            {#if loading}
+                <div class="text-center py-8">
+                    <p class="text-gray-500">Loading photo zones...</p>
+                </div>
+            {:else if error}
+                <div class="text-center py-8">
+                    <Error fullWidth>{error}</Error>
+                </div>
+            {:else if photoZones.length === 0}
+                <div class="text-center py-8">
+                    <p class="text-neutral-500">No photo zones available</p>
+                </div>
+            {:else if $searchStore.filtered.length === 0}
+                <div class="text-center py-8">
+                    <p class="text-neutral-500">No photo zones with this name</p>
+                </div>
+            {:else}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {#each $searchStore.filtered as zone (zone.id)}
+                        <Card {zone}>
+                            <Button color="light" onClick={() => {handleDetails(zone)}}>Details</Button>
+                            <Button onClick={() => {handleBooking(zone)}}>Book now</Button>
+                        </Card>
+                    {/each}
+                </div>
+            {/if}
         {/if}
     </main>
 </div>

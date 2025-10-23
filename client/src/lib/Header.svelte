@@ -3,25 +3,26 @@
     import router from "page";
     import {LogOut} from "@lucide/svelte";
 
+    let {pages} = $props();
+
     function handleLogout() {
         localStorage.removeItem("accessToken");
         router("/login");
     }
 </script>
 
-<header class="mb-12 bg-neutral-700 shadow-md sticky top-0 z-10">
+<header class="bg-neutral-700 shadow-md sticky top-0 z-10">
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <div class="flex items-center">
-                <button class="text-xl font-semibold text-neutral-200 cursor-pointer" on:click={() => router("/")}>Lumio
+                <button class="text-xl font-semibold text-neutral-200 cursor-pointer" onclick={() => router("/")}>Lumio
                     studio
                 </button>
             </div>
             <div class="flex space-x-8">
-                <Button color="light_link" onClick={() => router("/")}>Home</Button>
-                <Button color="light_link" onClick={() => router("/reservations")}>My reservations</Button>
-                <Button color="light_link" onClick={() => router("/users")}>Profile</Button>
-                <Button color="light_link" onClick={() => router("/example/testValue?key1=value1&key2=value2")}>Example</Button>
+                {#each pages as page (page.name)}
+                    <Button color="light_link" onClick={() => router(page.route)}>{page.name}</Button>
+                {/each}
             </div>
             <div class="flex items-center space-x-4">
                 <Button onClick={handleLogout} color="light">
