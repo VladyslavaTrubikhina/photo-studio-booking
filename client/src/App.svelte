@@ -6,6 +6,7 @@
     import MyReservations from "./pages/MyReservations.svelte";
     import Profile from "./pages/Profile.svelte";
     import Header from "./lib/Header.svelte";
+    import Register from "./pages/Register.svelte";
 
     let currentRoute = $state("/");
     let Page = $state();
@@ -13,6 +14,10 @@
 
     router("/login", () => {
         Page = Login;
+    });
+
+    router("/register", () => {
+        Page = Register;
     });
 
     router("/", () => {
@@ -39,7 +44,7 @@
     router.start();
 </script>
 
-{#if Page !== Login}
+{#if Page !== Login && Page !== Register}
     <Header pages={[
         {route: "/", name: "Home"},
         {route: "/reservations", name: "My reservations"},

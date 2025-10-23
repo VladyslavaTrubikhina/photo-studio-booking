@@ -1,43 +1,24 @@
 <script>
     import Button from "../lib/Button.svelte";
     import Input from "../lib/Input.svelte";
-    import router from "page";
     import Error from "../lib/Error.svelte";
+    import router from "page";
 
     let email;
     let password;
+    let confirmedPassword;
     let error;
 
-    async function handleLogin() {
-        try {
-            const res = await fetch("http://localhost:3000/auth/login", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({email, password}),
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                error = data.error || "Login failed";
-            }
-            if (res.ok) {
-                if (data?.accessToken) {
-                    localStorage.setItem("accessToken", data.accessToken);
-                }
-                router("/");
-            }
-
-        } catch (err) {
-            error = "Unable to reach the server";
-            console.error(err);
+    async function handleRegister() {
+        if(password.value === confirmedPassword.value){
+            router("/login");
         }
     }
 </script>
 
 <div class="flex justify-center items-center min-h-screen bg-neutral-100">
     <form class="bg-white p-8 rounded-xl shadow-md w-full max-w-sm">
-        <h2 class="text-2xl font-medium mb-6 text-center text-neutral-800">Login</h2>
+        <h2 class="text-2xl font-medium mb-6 text-center text-neutral-800">Register</h2>
         {#if error}
             <Error fullWidth>{error}</Error>
         {/if}
@@ -59,16 +40,22 @@
                     bind:value={password}
             />
         </div>
+        <div class="mb-4">
+            <Input
+                    id="confirmPassword"
+                    label="Confirm password"
+                    type="password"
+                    placeholder="********"
+                    bind:value={confirmedPassword}
+            />
+        </div>
         <Button
                 fullWidth
                 onClick={(e) => {
                     e.preventDefault();
-                    handleLogin();
+                    handleRegister();
                 }}>
-            Log In
-        </Button>
-        <Button fullWidth color="dark_link" onClick={() => {router("/register")}}>
-            <span class="border-b-1 border-b-neutral-700">Register new account</span>
+            Continue
         </Button>
     </form>
 </div>
