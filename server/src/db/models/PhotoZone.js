@@ -24,9 +24,8 @@ export const PhotoZoneModel = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        // Maybe need to remove because Sequelize adds FK itself
         location: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         }
     },

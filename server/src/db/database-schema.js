@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import {Sequelize} from "sequelize";
 import {UserModel} from "./models/User.js";
-import {LocationModel} from "./models/Location.js";
 import {PhotoZoneModel} from "./models/PhotoZone.js";
 import {ReservationModel} from "./models/Reservation.js";
 import bcrypt from "bcrypt";
@@ -14,14 +13,10 @@ const sequelize = new Sequelize({
 
 // Models
 const User = UserModel(sequelize);
-const Location = LocationModel(sequelize);
 const PhotoZone = PhotoZoneModel(sequelize);
 const Reservation = ReservationModel(sequelize);
 
 // Relations
-Location.hasMany(PhotoZone, {onDelete: 'CASCADE'});
-PhotoZone.belongsTo(Location);
-
 PhotoZone.hasMany(Reservation, {onDelete: 'CASCADE'});
 Reservation.belongsTo(PhotoZone);
 
@@ -48,17 +43,6 @@ async function addUser(email, password, is_admin = false) {
     return user;
 }
 
-async function addLocation(city, address, description){
-    const location = await Location.create(
-        {
-            city,
-            address,
-            description,
-        });
-    console.log("Created location:", location.address);
-    return location;
-}
-
 async function addPhotoZone(picture, name, style, description, price_per_hour, locationId) {
     const photoZone = await PhotoZone.create(
         { picture,
@@ -74,10 +58,8 @@ async function addPhotoZone(picture, name, style, description, price_per_hour, l
 
 export {
     User,
-    Location,
     PhotoZone,
     Reservation,
     addUser,
-    addLocation,
     addPhotoZone,
 };
