@@ -9,14 +9,18 @@
 </script>
 
 <header class="bg-neutral-700 shadow-md sticky top-0 z-10">
-    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
+    <div class="w-full 2xl:max-w-7xl mx-auto">
+        <div class="px-5 py-3 flex
+                flex-col items-center justify-center
+                md:flex-row md:justify-between md:items-center
+                lg:flex-row lg:justify-between lg:items-center
+        ">
             <div class="flex items-center">
-                <button class="text-xl font-semibold text-neutral-200 cursor-pointer" onclick={() => router("/")}>Lumio
+                <button class="text-xl font-semibold text-neutral-200 cursor-pointer focus:outline-none" onclick={() => router("/")}>Lumio
                     studio
                 </button>
             </div>
-            <div class="flex space-x-8">
+            <div class="flex md:space-x-8 lg:space-x-8 sm:justify-between">
                 {#if $isLoggedIn}
                     {#each pages as page (page.name)}
                         <Button color="light_link" onClick={() => router(page.route)}>{page.name}</Button>

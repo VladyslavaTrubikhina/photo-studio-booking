@@ -4,7 +4,7 @@
     export let value = "";
 </script>
 
-<div class="w-full md:w-1/3">
+<div class="w-full md:w-1/2 lg:w-1/3 md:pr-6">
     <div class="flex items-center rounded-xl bg-white border border-neutral-400">
         <div class="pl-3 py-2 ">
             <Search color="#737373" class="w-5 h-5"/>

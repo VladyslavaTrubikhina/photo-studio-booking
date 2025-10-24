@@ -52,11 +52,6 @@
         detailsPopup = !detailsPopup;
     }
 
-    function handleBooking(zone) {
-        clickedZone = zone;
-        bookingPopup = !bookingPopup;
-    }
-
     onMount(fetchPhotoZones);
 </script>
 
@@ -65,13 +60,20 @@
         <DetailsPopup zone={clickedZone} onClick={() => {handleDetails(null)}}/>
     {/if}
     {#if bookingPopup}
-        <BookingPopup zone={clickedZone} onClick={() => {handleBooking(null)}}/>
+        <BookingPopup onClose={() => {bookingPopup = false}}/>
     {/if}
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <main class="max-w-7xl mx-auto py-6 px-6 lg:px-8">
         {#if searchStore}
-            <div class="w-full flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-medium text-neutral-700">Photo zones</h2>
-                <SearchBar bind:value={$searchStore.search}/>
+            <div class="w-full mb-6">
+                <h2 class="text-2xl font-medium text-neutral-700 mb-6">Photo zones</h2>
+                <div class="w-full md:flex md:items-center md:justify-between">
+                    <SearchBar bind:value={$searchStore.search}/>
+                    {#if $isLoggedIn}
+                        <div class="flex justify-end mt-6 md:mt-0">
+                            <Button color="dark" onClick={() => {bookingPopup = true}}>Make reservation</Button>
+                        </div>
+                    {/if}
+                </div>
             </div>
             {#if loading}
                 <div class="text-center py-8">
@@ -94,9 +96,6 @@
                     {#each $searchStore.filtered as zone (zone.id)}
                         <Card {zone}>
                             <Button color="light" onClick={() => {handleDetails(zone)}}>Details</Button>
-                            {#if $isLoggedIn}
-                                <Button onClick={() => {handleBooking(zone)}}>Book now</Button>
-                            {/if}
                         </Card>
                     {/each}
                 </div>
