@@ -1,8 +1,8 @@
 <script>
     import ProfileCard from "../lib/ProfileCard.svelte";
-    import {getCurrentUser} from "../utils/usersHelper.js";
+    import {getCurrentUserId} from "../utils/usersHelper.js";
 
-    const currentUser = getCurrentUser();
+    const currentUser = getCurrentUserId();
 </script>
 
 <div class="pt-12 min-h-screen bg-neutral-50">

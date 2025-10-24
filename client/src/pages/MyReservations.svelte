@@ -2,33 +2,49 @@
     import ReservationCard from "../lib/ReservationCard.svelte";
     import Button from "../lib/Button.svelte";
     import Error from "../lib/Error.svelte";
-    import {getCurrentUser} from "../utils/usersHelper.js";
+    import {getCurrentUserId, getCurrentUserToken} from "../utils/usersHelper.js";
+    import {onMount} from "svelte";
 
     let activeTab = 'current'
-    let reservations = [
-        {
-            id: "1",
-            name: "Simplicity space",
-            date: "01-12-2025",
-            time: "15:00",
-            duration: 2,
-            total_price: 60
-        },
-        {
-            id: "2",
-            name: "Futuro",
-            date: "02-11-2025",
-            time: "12:00",
-            duration: 3,
-            total_price: 120
-        }
-    ];
+    let reservations = [];
     let error;
-    let user = getCurrentUser();
+    let userEmail;
+
+    async function getReservations() {
+
+        const userId = getCurrentUserId();
+        const token = getCurrentUserToken();
+
+
+        console.log(token)
+        try {
+            const res = await fetch(`http://localhost:3000/reservations?userId=${userId}`, {
+                method: "GET",
+                headers: {"Authorization": `Bearer ${token}`,},
+            });
+
+            const data = await res.json();
+
+            console.log(data)
+            if (!res.ok) {
+                error = data.error || "Getting reservations failed";
+            }
+            if (res.ok) {
+                userEmail = data.userEmail;
+                reservations = data.reservations;
+            }
+
+        } catch (err) {
+            error = "Unable to reach the server";
+            console.error(err);
+        }
+    }
 
     function handleCancel(id) {
         reservations = reservations.filter(r => r.id !== id);
     }
+
+    onMount(getReservations);
 </script>
 
 <div class="pt-12 min-h-screen bg-neutral-50">
@@ -57,7 +73,7 @@
                 <ReservationCard
                         activeTab={activeTab}
                         reservation={reservation}
-                        user={user}
+                        userEmail={userEmail}
                         onCancel={() => {handleCancel(reservation.id)}}
                 ></ReservationCard>
             {/each}

@@ -1,4 +1,4 @@
-import {addUser, addPhotoZone} from "./database-schema.js";
+import {addUser, addPhotoZone, addReservation} from "./database-schema.js";
 
 export async function seedDatabase() {
     try {
@@ -62,6 +62,10 @@ export async function seedDatabase() {
             40,
             "Deventer, Deventer Colmschate 19"
         );
+        // Add reservations
+        await addReservation(2, 1, "Futuro", "01-09-2020", "12:00", 3);
+        await addReservation(2, 3, "Simplicity space", "05-01-2023", "10:00", 2);
+        await addReservation(2, 6, "Cutie-patootie", "06-12-2024", "9:00", 2);
     } catch (error) {
         console.error("Database seeding failed:", error);
         throw error;

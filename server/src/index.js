@@ -5,6 +5,7 @@ import { swaggerSpec } from './swagger-config.js';
 import authRouter from './routes/auth-router.js';
 import photoZonesRouter from "./routes/photo-zones-router.js";
 import { seedDatabase } from "./db/seeder.js";
+import reservationsRouter from "./routes/reservations-router.js";
 
 const nodeEnv = process.env.NODE_ENV || 'dev';
 const app = express();
@@ -21,6 +22,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/auth', authRouter);
 app.use('/zones', photoZonesRouter);
+app.use('/reservations', reservationsRouter);
 
 // Global error handler. In your code, throw an object with a status and message, and it will be caught here. We ignore one eslint call here, because next is needed.
 // eslint-disable-next-line no-unused-vars

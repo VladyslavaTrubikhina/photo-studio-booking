@@ -35,7 +35,8 @@ try {
 async function addUser(email, password, is_admin = false) {
     const passwordHash = await bcrypt.hash(password, 12);
     const user = await User.create(
-        { email,
+        {
+            email,
             password: passwordHash,
             is_admin
         });
@@ -43,18 +44,51 @@ async function addUser(email, password, is_admin = false) {
     return user;
 }
 
-async function addPhotoZone(picture, name, style, description, price_per_hour, locationId) {
+async function addPhotoZone(picture, name, style, description, price_per_hour, location) {
     const photoZone = await PhotoZone.create(
-        { picture,
+        {
+            picture,
             name,
             style,
             description,
             price_per_hour,
-            location: locationId,
+            location,
         });
-    console.log("Created user:", photoZone.name);
+    console.log("Created zone:", photoZone.name);
     return photoZone;
 }
+
+async function addReservation(userId, photoZoneId, name, date, time, duration_hours) {
+    try {
+        const photoZone = await PhotoZone.findByPk(photoZoneId);
+        if (!photoZone) throw new  Error("PhotoZone not found");
+        const user = await User.findByPk(userId);
+        if (!user) throw new Error("User not found");
+
+        if (!user.is_admin) {
+            const total_price = duration_hours * photoZone.price_per_hour;
+
+            const reservation = await Reservation.create({
+                name,
+                date,
+                time,
+                duration_hours,
+                total_price,
+                UserId: userId,
+                PhotoZoneId: photoZoneId,
+            });
+
+            console.log(`Created reservation for ${name} on ${date} at ${time}`);
+            return reservation;
+        } else {
+            throw new Error("Admins can't make reservations")
+        }
+    } catch (err) {
+        console.error("Error creating reservation:", err.message);
+        throw err;
+    }
+}
+
 
 export {
     User,
@@ -62,4 +96,5 @@ export {
     Reservation,
     addUser,
     addPhotoZone,
+    addReservation,
 };

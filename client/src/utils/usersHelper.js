@@ -1,11 +1,15 @@
-export function getCurrentUser() {
-    if (typeof window === "undefined") return null;
+import {jwtDecode} from "jwt-decode";
 
-    try {
-        const userData = localStorage.getItem("user");
-        return userData ? JSON.parse(userData) : null;
-    } catch (e) {
-        console.error("Error parsing user data:", e);
-        return null;
+export function getCurrentUserId() {
+    const token = getCurrentUserToken();
+    if (token) {
+        const decoded = jwtDecode(token);
+        return decoded.id;
+    } else {
+        console.log("No token found");
     }
+}
+
+export function getCurrentUserToken(){
+    return localStorage.getItem("accessToken");
 }
