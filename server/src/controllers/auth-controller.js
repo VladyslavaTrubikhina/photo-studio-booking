@@ -1,4 +1,4 @@
-import { User } from "../db/database-schema.js";
+import {User} from "../db/database-schema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -42,23 +42,23 @@ import jwt from "jsonwebtoken";
  */
 
 export async function login(req, res) {
-    const { email, password } = req.body;
+    const {email, password} = req.body;
 
     if (!email || !password) {
-        return res.status(400).json({ error: "Email and password are required" });
+        return res.status(400).json({error: "Email and password are required"});
     }
 
     try {
         const user = await User.findOne({where: {email: email}});
-        if (!user) return res.status(401).json({ error: "Invalid email or password" });
+        if (!user) return res.status(401).json({error: "Invalid email or password"});
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) return res.status(401).json({ error: "Invalid email or password" });
+        if (!isPasswordValid) return res.status(401).json({error: "Invalid email or password"});
 
         const accessToken = jwt.sign(
-            { id: user.id, email: user.email, is_admin: user.is_admin },
+            {id: user.id, email: user.email, is_admin: user.is_admin},
             process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn: '15m'}
+            {expiresIn: '24h'}
         )
 
         return res.json({
@@ -72,7 +72,7 @@ export async function login(req, res) {
         });
     } catch (err) {
         console.error("Login error:", err);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({error: "Internal server error"});
     }
 }
 
