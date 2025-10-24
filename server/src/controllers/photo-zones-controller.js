@@ -25,6 +25,11 @@ export async function getAvailablePhotoZones(req, res) {
         const requestedStart = new Date(year, month - 1, day, hours, minutes);
         const requestedEnd = new Date(requestedStart.getTime() + duration_hours * 60 * 60 * 1000);
 
+        const now = new Date();
+        if (requestedStart < now) {
+            return res.status(400).json({ error: "Reservation date and time cannot be in the past" });
+        }
+
         const reservationsOnDate = await Reservation.findAll({
             where: {date}
         });

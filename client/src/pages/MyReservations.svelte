@@ -10,6 +10,23 @@
     let error;
     let userEmail;
 
+    function filterReservations(compareFunction) {
+        const now = new Date();
+        return reservations.filter(r => {
+            const [day, month, year] = r.date.split("-").map(Number);
+            const [hours, minutes] = r.time.split(":").map(Number);
+            const resEnd = new Date(year, month - 1, day, hours + r.duration_hours, minutes);
+            return compareFunction(resEnd, now);
+        });
+    }
+
+    $: filteredReservations = reservations.length
+        ? (activeTab === 'current'
+            ? filterReservations((resEnd, now) => resEnd >= now)
+            : filterReservations((resEnd, now) => resEnd < now))
+        : [];
+
+
     async function getReservations() {
         const userId = getCurrentUserId();
         const token = getCurrentUserToken();
@@ -83,7 +100,10 @@
                     </span>
                 </Button>
             </div>
-            {#each reservations as reservation (reservation.id)}
+            {#if filteredReservations.length === 0}
+                <p class="text-neutral-500 text-center mt-5">No {activeTab} reservations yet</p>
+            {/if}
+            {#each filteredReservations as reservation (reservation.id)}
                 <ReservationCard
                         activeTab={activeTab}
                         reservation={reservation}

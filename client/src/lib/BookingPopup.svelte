@@ -41,8 +41,11 @@
                 error = data.error || "Failed to fetch zones";
             }
 
-            availableZones = data;
-            disabledInputs = true;
+            if (response.ok) {
+                error = '';
+                availableZones = data;
+                disabledInputs = true;
+            }
         } catch (err) {
             console.error("Error fetching photo zones:", err);
             error = "Failed to load photo zones";
