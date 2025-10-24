@@ -7,7 +7,7 @@
     import {createSearchStore, searchHandler} from "../utils/stores/searchStore.js";
     import DetailsPopup from "../lib/DetailsPopup.svelte";
     import BookingPopup from "../lib/BookingPopup.svelte";
-    import {isLoggedIn} from "../utils/stores/authStore.js";
+    import {isLoggedIn} from "../utils/authHelper.js";
 
     let photoZones = [];
     let searchableZones;

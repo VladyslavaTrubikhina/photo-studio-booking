@@ -2,7 +2,7 @@
     import Button from "./Button.svelte";
     import router from "page";
     import {LogOut, LogIn, UserPlus} from "@lucide/svelte";
-    import {isLoggedIn, logout, login} from "../utils/stores/authStore.js";
+    import {isLoggedIn, logout, login} from "../utils/authHelper.js";
 
     let {pages} = $props();
 
