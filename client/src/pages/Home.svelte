@@ -87,7 +87,7 @@
                 </div>
             {:else if $searchStore.filtered.length === 0}
                 <div class="text-center py-8">
-                    <p class="text-neutral-500">No photo zones with this name</p>
+                    <p class="text-neutral-500">No photo zones with this name / style / description</p>
                 </div>
             {:else}
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
