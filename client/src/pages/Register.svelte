@@ -10,8 +10,29 @@
     let error;
 
     async function handleRegister() {
-        if(password.value === confirmedPassword.value){
-            router("/login");
+        try {
+            if (password !== confirmedPassword) {
+                error = "Passwords do not match";
+                return;
+            }
+
+            const res = await fetch("http://localhost:3000/users", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({email, password}),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                error = data.error || "Register failed";
+            }
+            if (res.ok) {
+                router("/login");
+            }
+        } catch (err) {
+            error = "Unable to reach the server";
+            console.error(err);
         }
     }
 </script>

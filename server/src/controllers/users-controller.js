@@ -55,11 +55,14 @@ export async function createUser(req, res) {
         const {email, password} = req.body;
 
         if (!email || !password) {
-            return res.status(400).json({error: "Bad request"});
+            return res.status(400).json({error: "All fields required"});
         }
 
         if (!validateEmail(email)) {
             return res.status(400).json({error: "Invalid email format"})
+        }
+        if (!validatePassword(password)) {
+            return res.status(400).json({error: "Password is required to be at least eight characters long"})
         }
 
         let user = await User.findOne({ where: { email } });
@@ -98,7 +101,11 @@ export async function updateUser(req, res) {
             }
         }
         if (password) {
-            updatedData.password = await bcrypt.hash(password, 12);
+            if (!validatePassword(password)) {
+                return res.status(400).json({error: "Password must be at least 8 characters long"})
+            } else {
+                updatedData.password = await bcrypt.hash(password, 12);
+            }
         }
 
         await user.update(updatedData);
@@ -117,4 +124,8 @@ export async function updateUser(req, res) {
 function validateEmail(email) {
     const emailRegex = /^\S+@\S+\.\S+$/;
     return emailRegex.test(email);
+}
+
+function validatePassword(password) {
+    return password.length >= 8;
 }

@@ -114,7 +114,8 @@
     <div class="w-1/2 mb-8 p-7">
         {#if error}
             <Error fullWidth>{error}</Error>
-        {:else if user}
+        {/if}
+        {#if user}
             <div class="w-full mt-6 space-y-4">
                 <Input
                         id="email"

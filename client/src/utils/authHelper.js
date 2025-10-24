@@ -1,12 +1,15 @@
-// src/lib/stores/auth.js
 import {writable} from "svelte/store";
 import router from "page";
 
-// initialize from localStorage
 export const isLoggedIn = writable(!!localStorage.getItem("accessToken"));
 
-export function login() {
+export function goToLogin() {
     router("/login");
+    isLoggedIn.set(true);
+}
+
+export function login() {
+    router("/");
     isLoggedIn.set(true);
 }
 

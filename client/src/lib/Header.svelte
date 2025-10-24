@@ -2,7 +2,7 @@
     import Button from "./Button.svelte";
     import router from "page";
     import {LogOut, LogIn, UserPlus} from "@lucide/svelte";
-    import {isLoggedIn, logout, login} from "../utils/authHelper.js";
+    import {isLoggedIn, logout, goToLogin} from "../utils/authHelper.js";
 
     let {pages} = $props();
 
@@ -34,7 +34,7 @@
                         <LogOut color="#525252" class="ml-2 w-4 h-4"/>
                     </Button>
                 {:else}
-                    <Button onClick={login} color="light">
+                    <Button onClick={goToLogin} color="light">
                         Login
                         <LogIn color="#525252" class="ml-2 w-4 h-4"/>
                     </Button>

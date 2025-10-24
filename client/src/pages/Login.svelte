@@ -3,6 +3,7 @@
     import Input from "../lib/Input.svelte";
     import router from "page";
     import Error from "../lib/Error.svelte";
+    import {login} from "../utils/authHelper.js";
 
     let email;
     let password;
@@ -25,7 +26,7 @@
                 if (data?.accessToken) {
                     localStorage.setItem("accessToken", data.accessToken);
                 }
-                router("/");
+                login();
             }
 
         } catch (err) {
