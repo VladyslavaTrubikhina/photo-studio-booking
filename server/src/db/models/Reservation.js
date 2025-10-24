@@ -12,11 +12,11 @@ export const ReservationModel = (sequelize) => {
                 allowNull: false,
             },
             date: {
-                type: DataTypes.DATE,
+                type: DataTypes.STRING,
                 allowNull: false,
             },
             time: {
-                type: DataTypes.TIME,
+                type: DataTypes.STRING,
                 allowNull: false,
             },
             duration_hours: {
