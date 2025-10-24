@@ -1,4 +1,4 @@
-import {Reservation, User} from "../db/database-schema.js";
+import {addReservation, Reservation, User} from "../db/database-schema.js";
 
 export async function getUserReservations(req, res) {
     try {
@@ -39,5 +39,33 @@ export async function cancelReservation(req, res) {
     } catch (error) {
         console.error("Error canceling reservation:", error);
         res.status(500).json({error: "Internal server error"});
+    }
+}
+
+export async function createReservation(req, res) {
+    try {
+        const { userId, photoZoneId, name, date, time, duration_hours } = req.body;
+
+        if (!userId || !photoZoneId || !name || !date || !time || !duration_hours) {
+            return res.status(400).json({ error: "Bad request" });
+        }
+
+        const reservation = await addReservation(
+            userId,
+            photoZoneId,
+            name,
+            date,
+            time,
+            duration_hours
+        );
+
+        return res.status(201).json({
+            message: "Reservation created successfully",
+            reservation
+        });
+
+    } catch (error) {
+        console.error("Error creating reservation:", error);
+        res.status(500).json({ error: "Internal server error"});
     }
 }
