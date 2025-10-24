@@ -24,6 +24,7 @@
     $: totalPrice = selectedZone ? duration * selectedZone.price_per_hour : 0;
     let error;
     let availableZones = [];
+    let disabledInputs = false;
 
     async function fetchPhotoZones() {
         const token = getCurrentUserToken();
@@ -41,6 +42,7 @@
             }
 
             availableZones = data;
+            disabledInputs = true;
         } catch (err) {
             console.error("Error fetching photo zones:", err);
             error = "Failed to load photo zones";
@@ -73,7 +75,7 @@
             if (!response.ok) {
                 error = data.error || "Failed to create reservation";
             }
-            if(response.ok){
+            if (response.ok) {
                 router("/reservations")
             }
         } catch (err) {
@@ -102,19 +104,22 @@
                         type="date"
                         label="Date"
                         bind:value={date}
+                        disabled={disabledInputs}
                 />
                 <Input
                         type="time"
                         label="Start time"
                         bind:value={time}
+                        disabled={disabledInputs}
                 />
                 <Input
                         type="number"
                         label="Duration (hours)"
                         placeholder="..."
                         bind:value={duration}
+                        disabled={disabledInputs}
                 />
-        </div>
+            </div>
         </div>
         {#if date && time && selectedZone}
             <div class="p-5">
@@ -133,10 +138,15 @@
             </div>
         {/if}
         {#if error}
-            <Error fullWidth>{error}</Error>
+            <div class="mt-5">
+                <Error fullWidth>{error}</Error>
+            </div>
         {/if}
         {#if availableZones.length > 0}
-            <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="w-full flex justify-center mt-10 mb-5">
+                <h3 class="text-lg font-medium text-neutral-700">These zones are available at selected time</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {#each availableZones as zone (zone.id)}
                     <Card {zone}>
                         <Button fullWidth onClick={() => {
