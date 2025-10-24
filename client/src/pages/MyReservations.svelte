@@ -11,12 +11,9 @@
     let userEmail;
 
     async function getReservations() {
-
         const userId = getCurrentUserId();
         const token = getCurrentUserToken();
 
-
-        console.log(token)
         try {
             const res = await fetch(`http://localhost:3000/reservations?userId=${userId}`, {
                 method: "GET",
@@ -25,7 +22,6 @@
 
             const data = await res.json();
 
-            console.log(data)
             if (!res.ok) {
                 error = data.error || "Getting reservations failed";
             }
@@ -40,8 +36,26 @@
         }
     }
 
-    function handleCancel(id) {
-        reservations = reservations.filter(r => r.id !== id);
+    async function handleCancel(id) {
+        const token = getCurrentUserToken();
+        try {
+            const res = await fetch(`http://localhost:3000/reservations/${id}`, {
+                method: "DELETE",
+                headers: {"Authorization": `Bearer ${token}`,},
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                error = data.error || "Canceling reservation failed";
+            }
+            if (res.ok) {
+                reservations = reservations.filter(r => r.id !== id);
+            }
+        } catch (err) {
+            error = "Unable to reach the server";
+            console.error(err);
+        }
     }
 
     onMount(getReservations);
