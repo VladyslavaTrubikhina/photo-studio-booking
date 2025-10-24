@@ -24,7 +24,7 @@
             <SummaryRow name="Date:">{formatDate(reservation.date)}</SummaryRow>
             <SummaryRow name="Start time:">{reservation.time}</SummaryRow>
             <SummaryRow name="Duration:">{reservation.duration_hours} h</SummaryRow>
-            <SummaryRow name="Date:">{reservation.total_price} €</SummaryRow>
+            <SummaryRow name="Total price:">{reservation.total_price} €</SummaryRow>
         </div>
         {#if activeTab === 'current'}
             <div class="flex justify-end mt-6">
