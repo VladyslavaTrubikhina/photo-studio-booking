@@ -6,7 +6,7 @@ export const isLoggedIn = (req, res, next) => {
     const secret = process.env.ACCESS_TOKEN_SECRET;
 
     if (!token) {
-        return res.status(401).json({message: 'Authorization failed'});
+        return res.status(401).json({error: 'Authorization failed'});
     }
 
     try {
