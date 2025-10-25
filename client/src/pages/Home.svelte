@@ -10,6 +10,7 @@
     import {isLoggedIn} from "../utils/authHelper.js";
     import {getCurrentUserIsAdmin} from "../utils/usersHelper.js";
     import {CalendarPlus, Pencil, Plus, Trash2} from "@lucide/svelte";
+    import EditZonePopup from "../lib/EditZonePopup.svelte";
 
     let photoZones = [];
     let searchableZones;
@@ -19,6 +20,7 @@
     let clickedZone;
     let detailsPopup = false;
     let bookingPopup = false;
+    let editPopup = false;
 
     async function fetchPhotoZones() {
         try {
@@ -54,15 +56,28 @@
         detailsPopup = !detailsPopup;
     }
 
+    function handleEdit(zone) {
+        clickedZone = zone;
+        editPopup = !editPopup;
+    }
+
+    function handleDelete(zone) {
+        clickedZone = zone;
+        detailsPopup = !detailsPopup;
+    }
+
     onMount(fetchPhotoZones);
 </script>
 
 <div class="pt-15 min-h-screen bg-neutral-100">
     {#if detailsPopup}
-        <DetailsPopup zone={clickedZone} onClick={() => {handleDetails(null)}}/>
+        <DetailsPopup zone={clickedZone} onClose={() => {handleDetails(null)}}/>
     {/if}
     {#if bookingPopup}
         <BookingPopup onClose={() => {bookingPopup = false}}/>
+    {/if}
+    {#if editPopup}
+        <EditZonePopup zone={clickedZone} onClose={() => {editPopup = false}}/>
     {/if}
     <main class="max-w-7xl mx-auto py-6 px-6 lg:px-8">
         {#if searchStore}
@@ -110,10 +125,10 @@
                             <div class="w-full flex justify-between">
                                 <div class="flex justify-center gap-2">
                                     {#if $isLoggedIn && getCurrentUserIsAdmin()}
-                                        <Button color="delete" onClick={() => {handleDetails(zone)}}>
+                                        <Button color="delete" onClick={() => {handleDelete(zone)}}>
                                             <Trash2 class="h-4 w-4"/>
                                         </Button>
-                                        <Button color="dark" onClick={() => {handleDetails(zone)}}>
+                                        <Button color="dark" onClick={() => {handleEdit(zone)}}>
                                             <Pencil class="h-4 w-4"/>
                                         </Button>
                                     {/if}
