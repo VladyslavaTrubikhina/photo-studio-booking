@@ -8,6 +8,8 @@
     import DetailsPopup from "../lib/DetailsPopup.svelte";
     import BookingPopup from "../lib/BookingPopup.svelte";
     import {isLoggedIn} from "../utils/authHelper.js";
+    import {getCurrentUserIsAdmin} from "../utils/usersHelper.js";
+    import {CalendarPlus, Pencil, Plus, Trash2} from "@lucide/svelte";
 
     let photoZones = [];
     let searchableZones;
@@ -68,9 +70,19 @@
                 <h2 class="text-2xl font-medium text-neutral-700 mb-6">Photo zones</h2>
                 <div class="w-full md:flex md:items-center md:justify-between">
                     <SearchBar bind:value={$searchStore.search}/>
-                    {#if $isLoggedIn}
+                    {#if $isLoggedIn && !getCurrentUserIsAdmin()}
                         <div class="flex justify-end mt-6 md:mt-0">
-                            <Button color="dark" onClick={() => {bookingPopup = true}}>Make reservation</Button>
+                            <Button color="dark" onClick={() => {bookingPopup = true}}>
+                                <CalendarPlus color="#f5f5f5" class="mr-2 w-4 h-4"/>
+                                Make reservation
+                            </Button>
+                        </div>
+                    {:else if $isLoggedIn && getCurrentUserIsAdmin()}
+                        <div class="flex justify-end mt-6 md:mt-0">
+                            <Button color="dark" onClick={() => {bookingPopup = true}}>
+                                <Plus color="#f5f5f5" class="mr-2 w-4 h-4"/>
+                                Add new photo zone
+                            </Button>
                         </div>
                     {/if}
                 </div>
@@ -95,7 +107,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {#each $searchStore.filtered as zone (zone.id)}
                         <Card {zone}>
-                            <Button color="light" onClick={() => {handleDetails(zone)}}>Details</Button>
+                            <div class="w-full flex justify-between">
+                                <div class="flex justify-center gap-2">
+                                    {#if $isLoggedIn && getCurrentUserIsAdmin()}
+                                        <Button color="delete" onClick={() => {handleDetails(zone)}}>
+                                            <Trash2 class="h-4 w-4"/>
+                                        </Button>
+                                        <Button color="dark" onClick={() => {handleDetails(zone)}}>
+                                            <Pencil class="h-4 w-4"/>
+                                        </Button>
+                                    {/if}
+                                </div>
+                                <Button color="light" onClick={() => {handleDetails(zone)}}>Details</Button>
+                            </div>
                         </Card>
                     {/each}
                 </div>

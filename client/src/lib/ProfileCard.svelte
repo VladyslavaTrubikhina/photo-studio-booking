@@ -136,17 +136,17 @@
             <div class="flex items-center justify-end mt-6 gap-4">
                 {#if disabled}
                     <Button color="light" onClick={() => {handleEditClick()}}>
-                        <Pencil class="h-4 w-4 mr-2"></Pencil>
+                        <Pencil class="h-4 w-4 mr-2"/>
                         Edit profile
                     </Button>
                 {:else }
                     <Button color="light" onClick={() => {handleSaveClick()}}>
-                        <ArrowDownToLine class="h-4 w-4 mr-2"></ArrowDownToLine>
+                        <ArrowDownToLine class="h-4 w-4 mr-2"/>
                         Save changes
                     </Button>
                 {/if}
                 <Button color="delete" onClick={() => {handleDelete()}}>
-                    <Trash2 class="h-4 w-4 mr-2"></Trash2>
+                    <Trash2 class="h-4 w-4 mr-2"/>
                     Delete profile
                 </Button>
             </div>
