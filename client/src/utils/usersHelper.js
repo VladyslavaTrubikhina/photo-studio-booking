@@ -14,6 +14,12 @@ export function getCurrentUserToken(){
     return localStorage.getItem("accessToken");
 }
 
-export function getCurrentUserIsAdmin(){
-    return localStorage.getItem("isAdmin");
+export function getCurrentUserIsAdmin() {
+    const token = getCurrentUserToken();
+    if (token) {
+        const decoded = jwtDecode(token);
+        return decoded.is_admin;
+    } else {
+        console.log("No token found");
+    }
 }

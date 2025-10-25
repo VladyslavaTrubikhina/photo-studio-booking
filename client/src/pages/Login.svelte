@@ -25,7 +25,6 @@
             if (res.ok) {
                 if (data?.accessToken) {
                     localStorage.setItem("accessToken", data.accessToken);
-                    localStorage.setItem("isAdmin", data.user.is_admin);
                 }
                 login();
             }
