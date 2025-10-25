@@ -13,3 +13,7 @@ export function getCurrentUserId() {
 export function getCurrentUserToken(){
     return localStorage.getItem("accessToken");
 }
+
+export function getCurrentUserIsAdmin(){
+    return localStorage.getItem("isAdmin");
+}
