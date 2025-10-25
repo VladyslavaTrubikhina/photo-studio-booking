@@ -1,4 +1,4 @@
-import {PhotoZone, Reservation} from "../db/database-schema.js";
+import {addPhotoZone, PhotoZone, Reservation} from "../db/database-schema.js";
 import {Op} from "sequelize";
 
 
@@ -75,6 +75,31 @@ export async function deleteZone(req, res) {
         return res.status(200).json({message: "Photo zone deleted successfully"});
     } catch (error) {
         console.error("Error deleting photo zone:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+}
+
+export async function createPhotoZone(req, res) {
+    try {
+        const {picture, name, zoneStyle, description, pricePerHour, location} = req.body;
+
+        if (!picture || !name || !zoneStyle || !description || !pricePerHour || !location) {
+            return res.status(400).json({error: "All fields required"});
+        }
+
+        let zone = await PhotoZone.findOne({ where: { name } });
+        if (zone) {
+            return res.status(409).json({error: "Zone with this name already exists"});
+        } else {
+            zone = await addPhotoZone(picture, name, zoneStyle, description, pricePerHour, location);
+        }
+
+        return res.status(200).json({
+            message: "Zone created successfully",
+            zone
+        });
+    } catch (error) {
+        console.error("Error creating zone:", error);
         res.status(500).json({error: "Internal server error"});
     }
 }

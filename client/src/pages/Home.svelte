@@ -11,6 +11,7 @@
     import {getCurrentUserId, getCurrentUserIsAdmin, getCurrentUserToken} from "../utils/usersHelper.js";
     import {CalendarPlus, Pencil, Plus, Trash2} from "@lucide/svelte";
     import EditZonePopup from "../lib/EditZonePopup.svelte";
+    import AddZonePopup from "../lib/AddZonePopup.svelte";
 
     let photoZones = [];
     let searchableZones;
@@ -21,6 +22,7 @@
     let detailsPopup = false;
     let bookingPopup = false;
     let editPopup = false;
+    let addZonePopup = false;
 
     async function fetchPhotoZones() {
         try {
@@ -102,6 +104,9 @@
     {#if editPopup}
         <EditZonePopup zone={clickedZone} onClose={() => {editPopup = false}}/>
     {/if}
+    {#if addZonePopup}
+        <AddZonePopup onClose={() => {addZonePopup = false}}/>
+    {/if}
     <main class="max-w-7xl mx-auto py-6 px-6 lg:px-8">
         {#if searchStore}
             <div class="w-full mb-6">
@@ -117,7 +122,7 @@
                         </div>
                     {:else if $isLoggedIn && getCurrentUserIsAdmin()}
                         <div class="flex justify-end mt-6 md:mt-0">
-                            <Button color="dark" onClick={() => {bookingPopup = true}}>
+                            <Button color="dark" onClick={() => {addZonePopup = true}}>
                                 <Plus color="#f5f5f5" class="mr-2 w-4 h-4"/>
                                 Add new photo zone
                             </Button>
