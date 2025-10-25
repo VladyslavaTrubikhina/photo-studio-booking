@@ -67,7 +67,7 @@
                 error = data.error || "Canceling reservation failed";
             }
             if (res.ok) {
-                reservations = reservations.filter(r => r.id !== id);
+                await getReservations();
             }
         } catch (err) {
             error = "Unable to reach the server";

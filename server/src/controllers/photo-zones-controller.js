@@ -57,3 +57,24 @@ export async function getAvailablePhotoZones(req, res) {
         res.status(500).json({error: "Internal server error"});
     }
 }
+
+export async function deleteZone(req, res) {
+    try {
+        const {id} = req.params;
+        if (!id) {
+            return res.status(400).json({error: "Bad request"});
+        }
+
+        const zone = await PhotoZone.findByPk(id);
+        if (!zone) {
+            return res.status(404).json({error: "Photo zone not found"});
+        }
+
+        await zone.destroy();
+
+        return res.status(200).json({message: "Photo zone deleted successfully"});
+    } catch (error) {
+        console.error("Error deleting photo zone:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+}

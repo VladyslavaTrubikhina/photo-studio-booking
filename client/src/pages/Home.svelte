@@ -8,7 +8,7 @@
     import DetailsPopup from "../lib/DetailsPopup.svelte";
     import BookingPopup from "../lib/BookingPopup.svelte";
     import {isLoggedIn} from "../utils/authHelper.js";
-    import {getCurrentUserIsAdmin} from "../utils/usersHelper.js";
+    import {getCurrentUserId, getCurrentUserIsAdmin, getCurrentUserToken} from "../utils/usersHelper.js";
     import {CalendarPlus, Pencil, Plus, Trash2} from "@lucide/svelte";
     import EditZonePopup from "../lib/EditZonePopup.svelte";
 
@@ -61,9 +61,32 @@
         editPopup = !editPopup;
     }
 
-    function handleDelete(zone) {
+    async function handleDelete(zone) {
         clickedZone = zone;
-        detailsPopup = !detailsPopup;
+        const userId = getCurrentUserId();
+        const token = getCurrentUserToken();
+        try {
+            const res = await fetch(`http://localhost:3000/zones/${zone.id}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({userId}),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                error = data.error || "Deleting zone failed";
+            }
+            if (res.ok) {
+                await fetchPhotoZones();
+            }
+        } catch (err) {
+            error = "Unable to reach the server";
+            console.error(err);
+        }
     }
 
     onMount(fetchPhotoZones);
