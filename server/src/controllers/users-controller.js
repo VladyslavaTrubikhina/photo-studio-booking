@@ -1,4 +1,4 @@
-import {addUser, User} from "../db/database-schema.js";
+import {addUser, Reservation, User} from "../db/database-schema.js";
 import bcrypt from "bcrypt";
 
 export async function getUser(req, res) {
@@ -21,7 +21,16 @@ export async function getUser(req, res) {
 export async function getAllUsers(req, res) {
     try {
         const users = await User.findAll();
-        res.status(200).json(users);
+        const mappedUsers = await Promise.all(
+            users.map(async (u) => {
+                const reservations = await Reservation.findAll({where: {UserId: u.id}});
+                return {
+                    ...u.toJSON(),
+                    reservations: reservations
+                };
+            })
+        );
+        res.status(200).json(mappedUsers);
     } catch (error) {
         console.error("Error fetching users:", error);
         res.status(500).json({error: "Internal server error"});
@@ -65,7 +74,7 @@ export async function createUser(req, res) {
             return res.status(400).json({error: "Password is required to be at least eight characters long"})
         }
 
-        let user = await User.findOne({ where: { email } });
+        let user = await User.findOne({where: {email}});
         if (user) {
             return res.status(409).json({error: "User with this email already exists"});
         } else {

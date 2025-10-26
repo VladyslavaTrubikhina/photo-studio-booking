@@ -86,7 +86,7 @@
                 error = data.error || "Updating user failed";
             }
             if (res.ok) {
-                await getUser();
+                router("/");
             }
         } catch (err) {
             error = "Unable to reach the server";
