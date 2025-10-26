@@ -5,6 +5,7 @@ export async function seedDatabase() {
         // Add users
         await addUser("admin@photos.com", "adminpassword123", true);
         await addUser("user@photos.com", "userpassword123");
+        await addUser("second@photos.com", "secondpassword123");
         // Add photo zones
         await addPhotoZone(
             "https://cdnb.artstation.com/p/assets/images/images/038/784/829/large/scene-unique-futuristic-studio-apartment.jpg?1624039595",
@@ -66,6 +67,8 @@ export async function seedDatabase() {
         await addReservation(2, 1, "Futuro", "01-09-2020", "12:00", 3);
         await addReservation(2, 3, "Haloween", "05-01-2023", "10:00", 2);
         await addReservation(2, 6, "70's", "06-12-2024", "9:00", 2);
+        await addReservation(2, 6, "70's", "13-08-2023", "9:00", 2);
+        await addReservation(2, 5, "Vintage", "10-11-2025", "8:00", 1);
     } catch (error) {
         console.error("Database seeding failed:", error);
         throw error;
