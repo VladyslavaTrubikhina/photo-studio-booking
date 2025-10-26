@@ -9,6 +9,9 @@ export async function getUserReservations(req, res) {
         }
 
         const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({error: "User zone not found"});
+        }
         const reservations = await Reservation.findAll({where: {userId}});
 
         return res.status(200).json({
@@ -44,10 +47,10 @@ export async function cancelReservation(req, res) {
 
 export async function createReservation(req, res) {
     try {
-        const { userId, photoZoneId, name, date, time, duration_hours } = req.body;
+        const {userId, photoZoneId, name, date, time, duration_hours} = req.body;
 
         if (!userId || !photoZoneId || !name || !date || !time || !duration_hours) {
-            return res.status(400).json({ error: "Bad request" });
+            return res.status(400).json({error: "Bad request"});
         }
 
         const reservation = await addReservation(
@@ -66,6 +69,6 @@ export async function createReservation(req, res) {
 
     } catch (error) {
         console.error("Error creating reservation:", error);
-        res.status(500).json({ error: "Internal server error"});
+        res.status(500).json({error: "Internal server error"});
     }
 }
