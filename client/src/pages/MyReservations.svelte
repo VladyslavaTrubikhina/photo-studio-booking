@@ -2,7 +2,8 @@
     import ReservationCard from "../lib/ReservationCard.svelte";
     import Button from "../lib/Button.svelte";
     import Error from "../lib/Error.svelte";
-    import {getCurrentUserId, getCurrentUserToken} from "../utils/usersHelper.js";
+    import {getCurrentUserId, getCurrentUserToken, getCurrentUserIsAdmin} from "../utils/usersHelper.js";
+    import {filterReservations} from "../utils/reservationsHelper.js";
     import {onMount} from "svelte";
 
     let activeTab = 'current'
@@ -10,46 +11,56 @@
     let error;
     let userEmail;
 
-    function filterReservations(compareFunction) {
-        const now = new Date();
-        return reservations.filter(r => {
-            const [day, month, year] = r.date.split("-").map(Number);
-            const [hours, minutes] = r.time.split(":").map(Number);
-            const resEnd = new Date(year, month - 1, day, hours + r.duration_hours, minutes);
-            return compareFunction(resEnd, now);
-        });
-    }
-
     $: filteredReservations = reservations.length
         ? (activeTab === 'current'
-            ? filterReservations((resEnd, now) => resEnd >= now)
-            : filterReservations((resEnd, now) => resEnd < now))
+            ? filterReservations(reservations, (resEnd, now) => resEnd >= now)
+            : filterReservations(reservations, (resEnd, now) => resEnd < now))
         : [];
-
 
     async function getReservations() {
         const userId = getCurrentUserId();
         const token = getCurrentUserToken();
+        if (!getCurrentUserIsAdmin()) {
+            try {
+                const res = await fetch(`http://localhost:3000/reservations?userId=${userId}`, {
+                    method: "GET",
+                    headers: {"Authorization": `Bearer ${token}`,},
+                });
 
-        try {
-            const res = await fetch(`http://localhost:3000/reservations?userId=${userId}`, {
-                method: "GET",
-                headers: {"Authorization": `Bearer ${token}`,},
-            });
+                const data = await res.json();
 
-            const data = await res.json();
+                if (!res.ok) {
+                    error = data.error || "Getting reservations failed";
+                }
+                if (res.ok) {
+                    userEmail = data.userEmail;
+                    reservations = data.reservations;
+                }
 
-            if (!res.ok) {
-                error = data.error || "Getting reservations failed";
+            } catch (err) {
+                error = "Unable to reach the server";
+                console.error(err);
             }
-            if (res.ok) {
-                userEmail = data.userEmail;
-                reservations = data.reservations;
-            }
+        } else if (getCurrentUserIsAdmin()) {
+            try {
+                const res = await fetch(`http://localhost:3000/reservations/all?userId=${userId}`, {
+                    method: "GET",
+                    headers: {"Authorization": `Bearer ${token}`},
+                });
 
-        } catch (err) {
-            error = "Unable to reach the server";
-            console.error(err);
+                const data = await res.json();
+
+                if (!res.ok) {
+                    error = data.message || "Getting reservations failed";
+                }
+                if (res.ok) {
+                    userEmail = "";
+                    reservations = data;
+                }
+            } catch (err) {
+                error = "Unable to reach the server";
+                console.error(err);
+            }
         }
     }
 
@@ -80,7 +91,11 @@
 
 <div class="pt-12 min-h-screen bg-neutral-50">
     <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <h2 class="w-full flex justify-center text-2xl font-medium text-neutral-700 mb-5">My reservations</h2>
+        {#if getCurrentUserIsAdmin()}
+            <h2 class="w-full flex justify-center text-2xl font-medium text-neutral-700 mb-5">Reservations</h2>
+        {:else}
+            <h2 class="w-full flex justify-center text-2xl font-medium text-neutral-700 mb-5">My reservations</h2>
+        {/if}
         {#if error}
             <Error fullWidth>{error}</Error>
         {:else if reservations.length === 0}
@@ -107,7 +122,7 @@
                 <ReservationCard
                         activeTab={activeTab}
                         reservation={reservation}
-                        userEmail={userEmail}
+                        userEmail={userEmail || reservation.email}
                         onCancel={() => {handleCancel(reservation.id)}}
                 ></ReservationCard>
             {/each}

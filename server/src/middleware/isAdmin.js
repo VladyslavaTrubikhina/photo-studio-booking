@@ -1,11 +1,12 @@
-import {User} from "../db/database-schema.js"
+import { User } from "../db/database-schema.js";
 
 export const isAdmin = async (req, res, next) => {
+    const userId = req.body?.userId ?? req.query?.userId;
 
-    if (!req.body.userId) return res.status(403).json({ error: 'Access denied.' });
+    if (!userId) return res.status(403).json({ error: 'Access denied.' });
 
     try {
-        const user = await User.findByPk(req.body.userId);
+        const user = await User.findByPk(Number(userId));
 
         if (!user) return res.status(404).json({ error: 'User not found' });
         if (!user.is_admin) return res.status(403).json({ error: 'Access denied.' });

@@ -1,5 +1,26 @@
 import {addReservation, Reservation, User} from "../db/database-schema.js";
 
+export async function getAllReservations(req, res) {
+    try {
+        const reservations = await Reservation.findAll();
+
+        const mappedReservations = await Promise.all(
+            reservations.map(async (r) => {
+                const user = await User.findByPk(r.UserId);
+                return {
+                    ...r.toJSON(),
+                    email: user.email
+                };
+            })
+        );
+
+        return res.status(200).json(mappedReservations);
+    } catch (error) {
+        console.error("Error fetching reservations:", error);
+        return res.status(500).json({error: "Internal server error"});
+    }
+}
+
 export async function getUserReservations(req, res) {
     try {
         const {userId} = req.query;
