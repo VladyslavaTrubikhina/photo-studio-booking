@@ -15,14 +15,14 @@
 </script>
 
 
-{#if color !== "link"}
+{#if !color.includes('link')}
     <button
             on:click={onClick}
             class={`flex items-center justify-center px-3 py-2 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${colorSettings} ${fullWidth ? 'w-full' : 'w-auto'}`}
     >
         <slot>Button</slot>
     </button>
-{:else if color.includes('link')}
+{:else}
     <button
             on:click={onClick}
             class={`${colorSettings} ${fullWidth ? 'w-full' : 'w-auto'}`}
