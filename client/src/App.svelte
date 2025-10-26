@@ -3,7 +3,7 @@
     import Login from "./pages/Login.svelte";
     import Home from "./pages/Home.svelte";
     import Reservations from "./pages/Reservations.svelte";
-    import Profile from "./pages/Profile.svelte";
+    import Users from "./pages/Users.svelte";
     import Header from "./lib/Header.svelte";
     import Register from "./pages/Register.svelte";
     import {getCurrentUserIsAdmin} from "./utils/usersHelper.js";
@@ -29,7 +29,7 @@
     });
 
     router("/users", () => {
-        Page = Profile;
+        Page = Users;
     });
 
 
@@ -48,7 +48,7 @@
         <Header pages={[
             {route: "/", name: "Home"},
             {route: "/reservations", name: "My reservations"},
-            {route: "/users", name: "Profile"},
+            {route: "/users", name: "Users"},
         ]}/>
     {/if}
 {/if}
