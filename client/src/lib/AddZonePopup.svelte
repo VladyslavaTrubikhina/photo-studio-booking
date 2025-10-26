@@ -44,7 +44,7 @@
             const data = await res.json();
 
             if (!res.ok) {
-                error = data.error || "Zone creation failed failed";
+                error = data.error || "Zone creation failed";
             }
             if (res.ok) {
                 onClose();
@@ -92,6 +92,7 @@
                         bind:value={description}
                 />
                 <Input
+                        type="number"
                         label="Price per hour"
                         placeholder="Price per hour..."
                         bind:value={pricePerHour}

@@ -102,10 +102,10 @@
         <BookingPopup onClose={() => {bookingPopup = false}}/>
     {/if}
     {#if editPopup}
-        <EditZonePopup zone={clickedZone} onClose={() => {editPopup = false}}/>
+        <EditZonePopup zone={clickedZone} onClose={() => {editPopup = false; fetchPhotoZones()}}/>
     {/if}
     {#if addZonePopup}
-        <AddZonePopup onClose={() => {addZonePopup = false}}/>
+        <AddZonePopup onClose={() => {addZonePopup = false; fetchPhotoZones()}}/>
     {/if}
     <main class="max-w-7xl mx-auto py-6 px-6 lg:px-8">
         {#if searchStore}

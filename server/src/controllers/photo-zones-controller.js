@@ -103,3 +103,43 @@ export async function createPhotoZone(req, res) {
         res.status(500).json({error: "Internal server error"});
     }
 }
+
+export async function updatePhotoZone(req, res) {
+    try {
+        const { id } = req.params;
+        const { picture, name, zoneStyle, description, pricePerHour, location } = req.body;
+
+        if (!id) {
+            return res.status(400).json({ error: "Zone ID is required" });
+        }
+
+        const zone = await PhotoZone.findByPk(id);
+        if (!zone) {
+            return res.status(404).json({ error: "Photo zone not found" });
+        }
+
+        if (name && name !== zone.name) {
+            const existing = await PhotoZone.findOne({ where: { name } });
+            if (existing) {
+                return res.status(409).json({ error: "Zone with this name already exists" });
+            }
+        }
+
+        await zone.update({
+            picture: picture ?? zone.picture,
+            name: name ?? zone.name,
+            zoneStyle: zoneStyle ?? zone.zoneStyle,
+            description: description ?? zone.description,
+            pricePerHour: pricePerHour ?? zone.pricePerHour,
+            location: location ?? zone.location,
+        });
+
+        return res.status(200).json({
+            message: "Photo zone updated successfully",
+            zone,
+        });
+    } catch (error) {
+        console.error("Error updating photo zone:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}

@@ -3,6 +3,8 @@
     import {ArrowDownToLine, X} from "@lucide/svelte";
     import Input from "./Input.svelte";
     import Error from "./Error.svelte";
+    import {getCurrentUserId, getCurrentUserToken} from "../utils/usersHelper.js";
+    import router from "page";
 
     let {zone, style = "normal", onClose} = $props();
 
@@ -10,7 +12,43 @@
         normal: "p-5 bg-white overflow-auto shadow-2xl rounded-xl w-200 m-10 max-h-[90vh]",
     };
 
-    let error;
+    let error = $state();
+
+    async function handleUpdateZone() {
+        const userId = getCurrentUserId();
+        const token = getCurrentUserToken();
+        try {
+            const res = await fetch(`http://localhost:3000/zones/${zone.id}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    userId,
+                    picture: zone.picture,
+                    name: zone.name,
+                    zoneStyle: zone.style,
+                    description: zone.description,
+                    pricePerHour: zone.price_per_hour,
+                    location: zone.location
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                error = data.error || "Zone update failed";
+            }
+            if (res.ok) {
+                onClose();
+                router("/");
+            }
+        } catch (err) {
+            error = "Unable to reach the server";
+            console.error(err);
+        }
+    }
 
 </script>
 
@@ -50,6 +88,7 @@
                             bind:value={zone.description}
                     />
                     <Input
+                            type="number"
                             label="Price per hour"
                             placeholder="Price per hour..."
                             bind:value={zone.price_per_hour}
@@ -61,7 +100,7 @@
                     />
                 </div>
                 <div class="my-5 flex justify-end">
-                    <Button fullWidth onClick={() => {}}>
+                    <Button fullWidth onClick={() => {handleUpdateZone()}}>
                         <ArrowDownToLine class="h-4 w-4 mr-2"/>
                         Save changes
                     </Button>

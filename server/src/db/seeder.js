@@ -39,12 +39,12 @@ export async function seedDatabase() {
             "Deventer, Deventer Colmschate 19"
         );
         await addPhotoZone(
-            "https://www.canonoutsideofauto.ca/wp-content/uploads/2024/10/inspiring-home-photo-studio.jpeg",
-            "Simplicity space",
-            "Minimalistic",
-            "A calm, modern studio with clean lines and soft natural lighting. Ideal for portraits, product photography, and lifestyle shoots with a minimalist aesthetic.",
-            30,
-            "Eindhoeven, Eindhoeven Centraal 23B"
+            "https://cdn-us0.puzzlegarage.com/img/puzzle/6/3046_preview.v1.jpg",
+            "Halloween",
+            "Spooky-scary",
+            "Very good zone for halloween photo shoot",
+            20,
+            "Enschede, Enschede Kennispark 76"
         );
         await addPhotoZone(
             "https://images.squarespace-cdn.com/content/v1/598201b7cd0f685ac66e10d7/1565382677345-TZMAN40CP1OF9CT4740D/_Cute_0004_Leonid_Furmansky_5127791695_Galveston+7.jpg?format=2500w",
