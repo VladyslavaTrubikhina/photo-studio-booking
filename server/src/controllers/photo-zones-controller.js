@@ -7,8 +7,7 @@ export async function getAllPhotoZones(req, res) {
         const zones = await PhotoZone.findAll();
         return res.status(200).json(zones);
     } catch (error) {
-        console.error("Error fetching photo zones:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }
 
@@ -53,8 +52,7 @@ export async function getAvailablePhotoZones(req, res) {
         return res.status(200).json(availableZones);
 
     } catch (error) {
-        console.error("Error fetching available photo zones:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }
 
@@ -74,8 +72,7 @@ export async function deleteZone(req, res) {
 
         return res.status(200).json({message: "Photo zone deleted successfully"});
     } catch (error) {
-        console.error("Error deleting photo zone:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }
 
@@ -99,8 +96,7 @@ export async function createPhotoZone(req, res) {
             zone
         });
     } catch (error) {
-        console.error("Error creating zone:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }
 
@@ -139,7 +135,6 @@ export async function updatePhotoZone(req, res) {
             zone,
         });
     } catch (error) {
-        console.error("Error updating photo zone:", error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal server error" + error});
     }
 }

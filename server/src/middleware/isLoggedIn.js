@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+/* eslint-disable no-console */
 
 export const isLoggedIn = (req, res, next) => {
     const authHeader = req.headers.authorization;

@@ -1,4 +1,5 @@
 import { User } from "../db/database-schema.js";
+/* eslint-disable no-console */
 
 export const isAdmin = async (req, res, next) => {
     const userId = req.body?.userId ?? req.query?.userId;

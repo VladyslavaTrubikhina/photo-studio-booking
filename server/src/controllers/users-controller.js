@@ -13,8 +13,7 @@ export async function getUser(req, res) {
 
         return res.status(200).json({user});
     } catch (error) {
-        console.error("Error getting user:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }
 
@@ -32,8 +31,7 @@ export async function getAllUsers(req, res) {
         );
         res.status(200).json(mappedUsers);
     } catch (error) {
-        console.error("Error fetching users:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }
 
@@ -53,8 +51,7 @@ export async function deleteUser(req, res) {
 
         return res.status(200).json({message: "User deleted successfully"});
     } catch (error) {
-        console.error("Error deleting user:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }
 
@@ -86,8 +83,7 @@ export async function createUser(req, res) {
             user
         });
     } catch (error) {
-        console.error("Error creating user:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }
 
@@ -124,11 +120,9 @@ export async function updateUser(req, res) {
             user
         });
     } catch (error) {
-        console.error("Error updating user:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }
-
 
 function validateEmail(email) {
     const emailRegex = /^\S+@\S+\.\S+$/;

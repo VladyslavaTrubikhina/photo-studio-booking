@@ -16,8 +16,7 @@ export async function getAllReservations(req, res) {
 
         return res.status(200).json(mappedReservations);
     } catch (error) {
-        console.error("Error fetching reservations:", error);
-        return res.status(500).json({error: "Internal server error"});
+        return res.status(500).json({error: "Internal server error" + error});
     }
 }
 
@@ -40,8 +39,7 @@ export async function getUserReservations(req, res) {
             reservations
         });
     } catch (error) {
-        console.error("Error getting reservations:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }
 
@@ -61,8 +59,7 @@ export async function cancelReservation(req, res) {
 
         return res.status(200).json({message: "Reservation canceled successfully"});
     } catch (error) {
-        console.error("Error canceling reservation:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }
 
@@ -89,7 +86,6 @@ export async function createReservation(req, res) {
         });
 
     } catch (error) {
-        console.error("Error creating reservation:", error);
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error" + error});
     }
 }

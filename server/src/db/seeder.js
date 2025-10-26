@@ -1,4 +1,5 @@
 import {addUser, addPhotoZone, addReservation} from "./database-schema.js";
+/* eslint-disable no-console */
 
 export async function seedDatabase() {
     try {
