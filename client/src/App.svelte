@@ -48,7 +48,7 @@
         <Header pages={[
             {route: "/", name: "Home"},
             {route: "/reservations", name: "My reservations"},
-            {route: "/users", name: "Users"},
+            {route: "/users", name: "Profile"},
         ]}/>
     {/if}
 {/if}
