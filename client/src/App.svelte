@@ -2,7 +2,7 @@
     import router from "page";
     import Login from "./pages/Login.svelte";
     import Home from "./pages/Home.svelte";
-    import MyReservations from "./pages/MyReservations.svelte";
+    import Reservations from "./pages/Reservations.svelte";
     import Profile from "./pages/Profile.svelte";
     import Header from "./lib/Header.svelte";
     import Register from "./pages/Register.svelte";
@@ -25,7 +25,7 @@
     });
 
     router("/reservations", () => {
-        Page = MyReservations;
+        Page = Reservations;
     });
 
     router("/users", () => {

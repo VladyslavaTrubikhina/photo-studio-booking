@@ -5,16 +5,20 @@
     import {getCurrentUserId, getCurrentUserToken, getCurrentUserIsAdmin} from "../utils/usersHelper.js";
     import {filterReservations} from "../utils/reservationsHelper.js";
     import {onMount} from "svelte";
+    import {createSearchStore, searchHandler} from "../utils/stores/searchStore.js";
+    import SearchBar from "../lib/SearchBar.svelte";
 
     let activeTab = 'current'
     let reservations = [];
+    let searchableReservations;
+    let searchStore;
     let error;
     let userEmail;
 
-    $: filteredReservations = reservations.length
+    $: filteredReservations = (searchStore ? $searchStore.filtered : reservations).length
         ? (activeTab === 'current'
-            ? filterReservations(reservations, (resEnd, now) => resEnd >= now)
-            : filterReservations(reservations, (resEnd, now) => resEnd < now))
+            ? filterReservations(searchStore ? $searchStore.filtered : reservations, (resEnd, now) => resEnd >= now)
+            : filterReservations(searchStore ? $searchStore.filtered : reservations, (resEnd, now) => resEnd < now))
         : [];
 
     async function getReservations() {
@@ -56,6 +60,12 @@
                 if (res.ok) {
                     userEmail = "";
                     reservations = data;
+                    searchableReservations = reservations.map((r) => ({
+                        ...r,
+                        searchable: `${r.email} ${r.name} ${r.id}`
+                    }));
+                    searchStore = createSearchStore(searchableReservations);
+                    searchStore.subscribe((model) => searchHandler(model));
                 }
             } catch (err) {
                 error = "Unable to reach the server";
@@ -90,9 +100,14 @@
 </script>
 
 <div class="pt-12 min-h-screen bg-neutral-50">
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <main class="max-w-7xl mx-auto py-6 px-6 lg:px-8">
         {#if getCurrentUserIsAdmin()}
             <h2 class="w-full flex justify-center text-2xl font-medium text-neutral-700 mb-5">Reservations</h2>
+            {#if searchStore}
+                <div class="flex justify-center my-5 ml-6">
+                    <SearchBar bind:value={$searchStore.search}/>
+                </div>
+            {/if}
         {:else}
             <h2 class="w-full flex justify-center text-2xl font-medium text-neutral-700 mb-5">My reservations</h2>
         {/if}
@@ -115,7 +130,9 @@
                     </span>
                 </Button>
             </div>
-            {#if filteredReservations.length === 0}
+            {#if searchStore && filteredReservations.length === 0}
+                <p class="text-neutral-500 text-center mt-5">No {activeTab} reservations with this name / email / id</p>
+            {:else if !searchStore && filteredReservations.length === 0}
                 <p class="text-neutral-500 text-center mt-5">No {activeTab} reservations yet</p>
             {/if}
             {#each filteredReservations as reservation (reservation.id)}
