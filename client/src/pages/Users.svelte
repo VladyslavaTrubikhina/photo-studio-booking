@@ -121,13 +121,16 @@
                 <div class="flex justify-center my-5 ml-6">
                     <SearchBar bind:value={$searchStore.search}/>
                 </div>
+                {#if $searchStore.filtered.length === 0}
+                    <p class="text-neutral-500 text-center mt-6">No users with this id or email</p>
+                {/if}
                 <div class="my-6 sm:px-0 flex-col justify-items-center">
                     {#each $searchStore.filtered as user (user.id)}
                         <div class="w-1/2 my-5 p-5 rounded-xl bg-white shadow-md">
                             {#if user.is_admin}
                                 <div class="w-full flex items-center justify-center">
-                                    <span class="text-neutral-700 text-xl">Admin</span>
-                                    <span class="text-neutral-700 text-xl ml-2">(you)</span>
+                                    <span class="text-neutral-700 text-lg">Admin</span>
+                                    <span class="text-neutral-700 text-lg ml-2">(you)</span>
                                 </div>
                             {/if}
                             <div class="flex items-center justify-between">
