@@ -116,7 +116,7 @@
         {:else if reservations.length === 0}
             <p class="text-neutral-500 text-center">No reservations yet</p>
         {:else }
-            <div class="w-full flex items-center justify-center">
+            <div class="w-full flex items-center justify-center space-x-2">
                 <Button color="dark_link" onClick={() => {activeTab = 'current'}}>
                     <span
                             class={`text-xl ${ activeTab === 'current' ? "" : "text-neutral-400 hover:text-neutral-700"}`}>

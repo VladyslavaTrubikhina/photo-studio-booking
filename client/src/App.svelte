@@ -12,24 +12,29 @@
     let Page = $state();
     let context = $state({});
 
-    router("/login", () => {
+    router("/login", (ctx) => {
         Page = Login;
+        currentRoute = ctx.pathname;
     });
 
-    router("/register", () => {
+    router("/register", (ctx) => {
         Page = Register;
+        currentRoute = ctx.pathname;
     });
 
-    router("/", () => {
+    router("/", (ctx) => {
         Page = Home;
+        currentRoute = ctx.pathname;
     });
 
-    router("/reservations", () => {
+    router("/reservations", (ctx) => {
         Page = Reservations;
+        currentRoute = ctx.pathname;
     });
 
-    router("/users", () => {
+    router("/users", (ctx) => {
         Page = Users;
+        currentRoute = ctx.pathname;
     });
 
 
@@ -39,17 +44,23 @@
 
 {#if Page !== Login && Page !== Register}
     {#if getCurrentUserIsAdmin()}
-        <Header pages={[
-            {route: "/", name: "Photo zones"},
-            {route: "/reservations", name: "Reservations"},
-            {route: "/users", name: "Users"},
-        ]}/>
+        <Header
+                pages={[
+                    {route: "/", name: "Photo zones"},
+                    {route: "/reservations", name: "Reservations"},
+                    {route: "/users", name: "Users"}
+                ]}
+                active={currentRoute}
+        />
     {:else}
-        <Header pages={[
-            {route: "/", name: "Home"},
-            {route: "/reservations", name: "My reservations"},
-            {route: "/users", name: "Profile"},
-        ]}/>
+        <Header
+                pages={[
+                    {route: "/", name: "Home"},
+                    {route: "/reservations", name: "My reservations"},
+                    {route: "/users", name: "Profile"},
+                ]}
+                active={currentRoute}
+        />
     {/if}
 {/if}
 <Page {context}/>

@@ -4,7 +4,7 @@
     import {LogOut, LogIn, UserPlus} from "@lucide/svelte";
     import {isLoggedIn, logout, goToLogin} from "../utils/authHelper.js";
 
-    let {pages} = $props();
+    let {pages, active} = $props();
 
 </script>
 
@@ -16,14 +16,21 @@
                 lg:flex-row lg:justify-between lg:items-center
         ">
             <div class="flex items-center">
-                <button class="text-xl font-semibold text-neutral-200 cursor-pointer focus:outline-none" onclick={() => router("/")}>Lumio
+                <button class="text-xl font-semibold text-neutral-200 cursor-pointer focus:outline-none"
+                        onclick={() => router("/")}>Lumio
                     studio
                 </button>
             </div>
-            <div class="flex md:space-x-8 lg:space-x-8 sm:justify-between">
+            <div class="flex mb-2 md:space-x-8 lg:space-x-8 sm:justify-between">
                 {#if $isLoggedIn}
                     {#each pages as page (page.name)}
-                        <Button color="light_link" onClick={() => router(page.route)}>{page.name}</Button>
+                        {#if active === page.route}
+                            <Button color="light_link" onClick={() => router(page.route)}>
+                                <span class="border-b-1 border-b-neutral-200 pb-1">{page.name}</span>
+                            </Button>
+                        {:else }
+                            <Button color="light_link" onClick={() => router(page.route)}>{page.name}</Button>
+                        {/if}
                     {/each}
                 {/if}
             </div>
