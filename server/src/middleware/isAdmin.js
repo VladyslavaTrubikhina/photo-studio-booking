@@ -1,5 +1,4 @@
 import { User } from "../db/database-schema.js";
-/* eslint-disable no-console */
 
 export const isAdmin = async (req, res, next) => {
     const userId = req.body?.userId ?? req.query?.userId;
@@ -14,7 +13,6 @@ export const isAdmin = async (req, res, next) => {
 
         next();
     } catch (err) {
-        console.error('Admin check failed:', err);
-        res.status(500).json({ message: 'Server error verifying admin access.' });
+        res.status(500).json({ message: 'Server error verifying admin access.' + err});
     }
 };

@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-/* eslint-disable no-console */
 
 export const isLoggedIn = (req, res, next) => {
     const authHeader = req.headers.authorization;
@@ -13,8 +12,7 @@ export const isLoggedIn = (req, res, next) => {
     try {
         req.user = jwt.verify(token, secret);
         next();
-    } catch (error) {
-        console.log("Token error: " + error);
-        return res.status(401).json({message: 'Invalid or expired token'});
+    } catch (err) {
+        return res.status(401).json({message: 'Invalid or expired token' + err});
     }
 };
