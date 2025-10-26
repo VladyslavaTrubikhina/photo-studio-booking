@@ -38,13 +38,15 @@
                 error = data.error || "Failed to fetch zones";
             }
 
-            photoZones = data;
-            searchableZones = photoZones.map((zone) => ({
-                ...zone,
-                searchable: `${zone.name} ${zone.location} ${zone.style}`
-            }));
-            searchStore = createSearchStore(searchableZones);
-            searchStore.subscribe((model) => searchHandler(model));
+            if (response.ok) {
+                photoZones = data;
+                searchableZones = photoZones.map((zone) => ({
+                    ...zone,
+                    searchable: `${zone.name} ${zone.location} ${zone.style}`
+                }));
+                searchStore = createSearchStore(searchableZones);
+                searchStore.subscribe((model) => searchHandler(model));
+            }
         } catch (err) {
             console.error("Error fetching photo zones:", err);
             error = "Failed to load photo zones";
