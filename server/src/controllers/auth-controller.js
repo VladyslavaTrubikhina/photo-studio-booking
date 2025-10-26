@@ -2,45 +2,6 @@ import {User} from "../db/database-schema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-/**
- * @openapi
- * /auth/login:
- *   post:
- *     summary: Log in an existing user
- *     description: Authenticates a user with email and password, returns an access token.
- *     tags:
- *       - Auth
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - email
- *               - password
- *             properties:
- *               email:
- *                 type: string
- *                 example: user@example.com
- *               password:
- *                 type: string
- *                 example: userpassword123
- *     responses:
- *       200:
- *         description: Successfully authenticated
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
- *       401:
- *         description: Invalid email or password
- */
-
 export async function login(req, res) {
     const {email, password} = req.body;
 
@@ -58,7 +19,7 @@ export async function login(req, res) {
         const accessToken = jwt.sign(
             {id: user.id, email: user.email, is_admin: user.is_admin},
             process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn: '24h'}
+            {expiresIn: '1h'}
         )
 
         return res.json({
