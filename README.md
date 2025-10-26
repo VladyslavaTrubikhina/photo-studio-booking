@@ -32,7 +32,7 @@ Each section below explains a root directory in the template.
 
 ## Assignment
 
-In order to receive a passing grade you need to implement the [assignment](./assignment/README.md). The assignment 
+In order to receive a passing grade you need to implement the [assignment](./assignment/Requirements). The assignment 
 description can be found in the `assignment` directory. This directory contains the explanation if the assignment as 
 well as a partial functional design. The functional design contains requirements, user stories and basic wireframes.
 

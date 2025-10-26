@@ -1,6 +1,6 @@
 # Users
 
-Credentials for one administrator and one regular user existing in the app by default.
+Credentials for one administrator and two regular users existing in the app by default.
 
 | Username | Password          | Account type      |
 |----------|-------------------|-------------------|
