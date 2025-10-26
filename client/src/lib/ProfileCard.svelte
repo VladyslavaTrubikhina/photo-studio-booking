@@ -2,47 +2,21 @@
     import Button from "./Button.svelte";
     import {Trash2, Pencil, ArrowDownToLine} from "@lucide/svelte";
     import Input from "./Input.svelte";
-    import {getCurrentUserId, getCurrentUserToken} from "../utils/usersHelper.js";
-    import {onMount} from "svelte";
+    import {getCurrentUserToken} from "../utils/usersHelper.js";
     import router from "page";
     import Error from "./Error.svelte";
     import {logout} from "../utils/authHelper.js";
 
-    let disabled = true;
-    let passwordLabel = "Password";
-    let user;
-    let newPassword = "********";
-    let error;
-
-    async function getUser() {
-        const userId = getCurrentUserId();
-        const token = getCurrentUserToken();
-
-        try {
-            const res = await fetch(`http://localhost:3000/users/${userId}`, {
-                method: "GET",
-                headers: {"Authorization": `Bearer ${token}`,},
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                error = data.error || "Getting user failed";
-            }
-            if (res.ok) {
-                user = data.user;
-            }
-        } catch (err) {
-            error = "Unable to reach the server";
-            console.error(err);
-        }
-    }
+    let disabled = $state(true);
+    let passwordLabel = $state("Password");
+    let {user} = $props();
+    let newPassword = $state("********");
+    let error = $state();
 
     async function handleDelete() {
-        const userId = getCurrentUserId();
         const token = getCurrentUserToken();
         try {
-            const res = await fetch(`http://localhost:3000/users/${userId}`, {
+            const res = await fetch(`http://localhost:3000/users/${user.id}`, {
                 method: "DELETE",
                 headers: {"Authorization": `Bearer ${token}`,},
             });
@@ -63,12 +37,11 @@
     }
 
     async function updateUser() {
-        const userId = getCurrentUserId();
         const token = getCurrentUserToken();
         try {
             console.log("EMAIL", user.email);
             console.log("PASSWORD", newPassword);
-            const res = await fetch(`http://localhost:3000/users/${userId}`, {
+            const res = await fetch(`http://localhost:3000/users/${user.id}`, {
                 method: "PUT",
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -106,8 +79,6 @@
         updateUser();
         newPassword = "********";
     }
-
-    onMount(getUser)
 </script>
 
 <div class="my-6 sm:px-0 flex-col justify-items-center">
